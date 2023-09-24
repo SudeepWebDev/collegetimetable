@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atma Ram Sanatan Dharma College</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/custom.css'%}">
+    <!-- Include your CSS and JavaScript files here -->
+</head>
+
+<body>
+    <header>
+        <!-- Include header content here -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white"
+            style="    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand" href="#">
+                    <div class="d-flex align-items-center">
+                        <img src="{% static 'images/logo.png' %}" alt="Logo" width="50">
+                        <span class="d-none d-lg-block ml-2 custom-logo">Atma Ram Sanatan Dharma College</span>
+                        <span class="d-lg-none ml-2 custom-logo">ARSD College</span>
+                    </div>
+                </a>
+
+
+                <!-- Navbar Toggler Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navbar Links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Faculty Wise -->
+                        <li class="nav-item hover-underline">
+                            <a class="nav-link" href="#">Faculty Wise</a>
+                        </li>
+
+                        <!-- Room Wise -->
+                        <li class="nav-item hover-underline">
+                            <a class="nav-link" href="#">Room Wise</a>
+                        </li>
+
+                        <!-- Course Wise -->
+                        <li class="nav-item hover-underline">
+                            <a class="nav-link" href="#">Course Wise</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Page-specific content goes here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Include footer content here -->
+    </footer>
+    {% block script %}
+    <!-- Page-specific content goes here -->
+    {% endblock %}
+</body>
+
+</html>
