@@ -484,7 +484,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for entry in timetable_entries %}
+                    <!-- {% for entry in timetable_entries %}
                     <tr>
 
                         <td class="align-middle">{{ entry.day }}</td>
@@ -492,7 +492,7 @@
                         <td>
                             <span
                                 class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject.subject_name }}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }}</div>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.timing.start_time }}</div>
                             <div class="margin-10px-top font-size14">{{ entry.room.room_number }}</div>
                             <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
                         </td>
@@ -503,10 +503,10 @@
                         </td>
                         {% endif %}
                     </tr>
-                    {% endfor %}
-   
+                    {% endfor %} -->
 
-                    <tr>
+
+                    <!-- <tr>
                         <td class="align-middle">Monday</td>
                         <td>
                             <span
@@ -566,6 +566,92 @@
                             <div class="margin-10px-top font-size14"></div>
                             <div class="font-size13 text-light-gray"></div>
                         </td>
+                    </tr> -->
+                    <tr>
+                        
+                        <td class="align-middle">Monday</td>
+                        {% with timing='' %}
+                        {% for entry in timetable_entries %}
+                        
+                        {% if entry.day == 'MONDAY' %}
+                        {% if entry.subject %}
+                        <td>
+                            <span
+                            class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} ||
+                                {{entry.room.room_number }}</div>
+                                <!-- <div class="margin-10px-top font-size14">{{ entry.room.room_number }}</div> -->
+                                <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
+                            </td>
+                        {% else %}
+                            
+                            <td>
+                                <span
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
+                            </td>
+                        {% endif %}
+                        {% else %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endwith %}
+                        <!-- <td>
+                            <span
+                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
+                                Lab</span>
+                            <div class="margin-10px-top font-size14">CL4</div>
+                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
+                        </td>
+                        <td>
+                            <span
+                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
+                                Lab</span>
+                            <div class="margin-10px-top font-size14">CL4</div>
+                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
+                        </td>
+                        <td>
+                            <span
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
+                            <div class="margin-10px-top font-size14"></div>
+                            <div class="font-size13 text-light-gray"></div>
+                        </td>
+                        <td>
+                            <span
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
+                            <div class="margin-10px-top font-size14"></div>
+                            <div class="font-size13 text-light-gray"></div>
+                        </td>
+                        <td>
+                            <span
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
+                            <div class="margin-10px-top font-size14"></div>
+                            <div class="font-size13 text-light-gray"></div>
+                        </td>
+                        <td>
+                            <span
+                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
+                                O Lab</span>
+                            <div class="margin-10px-top font-size14">CL4</div>
+                            <div class="font-size13 text-light-gray">LKS</div>
+                        </td>
+                        <td>
+                            <span
+                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
+                                O Lab</span>
+                            <div class="margin-10px-top font-size14">CL4</div>
+                            <div class="font-size13 text-light-gray">LKS</div>
+                        </td>
+                        <td>
+                            <span
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
+                            <div class="margin-10px-top font-size14"></div>
+                            <div class="font-size13 text-light-gray"></div>
+                        </td>
+                        <td>
+                            <span
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
+                            <div class="margin-10px-top font-size14"></div>
+                            <div class="font-size13 text-light-gray"></div>
+                        </td> -->
                     </tr>
 
                     <tr>
