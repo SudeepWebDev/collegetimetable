@@ -23,8 +23,8 @@
                         {% endfor %}
                     </select>
 
-                    <label for="{{ form.semester.id_for_label }}" class="form-label">Select Semester:</label>
-                    <select class="form-select" id="{{ form.semester.id_for_label }}" name="{{ form.semester.name }}"
+                    <label for="semester" class="form-label">Select Semester:</label>
+                    <select class="form-select" id="semester" name="{{ form.semester.name }}"
                         aria-label="Select Semester">
                         <option selected disabled>Select semester</option>
                         {% for semester in form.semester.field.queryset %}
@@ -59,8 +59,11 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-outline-primary mt-3 ">Submit</button>
+                <button type="submit" class="btn btn-outline-primary mt-3 " id="submit-tt-btn">Submit</button>
             </form>
+
+            <script>
+            </script>
 
         </div>
     </div>
@@ -484,116 +487,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- {% for entry in timetable_entries %}
+
                     <tr>
-
-                        <td class="align-middle">{{ entry.day }}</td>
-                        {% if entry.subject %}
-                        <td>
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject.subject_name }}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.timing.start_time }}</div>
-                            <div class="margin-10px-top font-size14">{{ entry.room.room_number }}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
-                        </td>
-                        {% else %}
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
-                        </td>
-                        {% endif %}
-                    </tr>
-                    {% endfor %} -->
-
-
-                    <!-- <tr>
                         <td class="align-middle">Monday</td>
-                        <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
-                                O Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
-                                O Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                    </tr> -->
-                    <tr>
-                        
-                        <td class="align-middle">Monday</td>
-                        {% with timing='' %}
                         {% for entry in timetable_entries %}
-                        
-                        {% if entry.day == 'MONDAY' %}
-                        {% if entry.subject %}
-                        <td>
-                            <span
-                            class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} ||
-                                {{entry.room.room_number }}</div>
-                                <!-- <div class="margin-10px-top font-size14">{{ entry.room.room_number }}</div> -->
-                                <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
-                            </td>
-                        {% else %}
-                            
+                          {% if entry.day == 'MONDAY' %}
                             <td>
-                                <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
+                              {% if entry.subject == 'Break' %}
+                                <span class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
+                              {% else %}
+                                <span class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{ entry.subject }}</span>
+                                <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{ entry.room.room_number }}</div>
+                                <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
+                              {% endif %}
                             </td>
-                        {% endif %}
-                        {% else %}
-                        {% endif %}
+                          {% endif %}
                         {% endfor %}
-                        {% endwith %}
+                        <!-- <td class="align-middle">Monday</td>
+                        {% for entry in timetable_entries %}
+                          {% if entry.day == 'MONDAY' %}
+                            <td>
+                              {% if entry.subject == 'Break' %}
+                                <span class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
+                              {% else %}
+                                <span class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{ entry.subject }}</span>
+                                <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{ entry.room.room_number }}</div>
+                                <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
+                              {% endif %}
+                            </td>
+                          {% endif %}
+                        {% endfor %} -->
+
                         <!-- <td>
                             <span
                                 class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
@@ -970,46 +894,6 @@
         </div>
     </div>
 
-    <!-- 
-
-    <table id="timetable-table" class="table">
-        <thead>
-            <tr>
-                <th>Day</th>
-                <th>Lecture Type</th>
-                <th>Subject</th>
-                <th>Room</th>
-                <th>Timing</th>
-                <th>Faculty</th>
-                <th>Faculty 2</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entry in timetable_entries %}
-            <tr>
-                <td>{{ entry.day }}</td>
-                <td>{{ entry.lecture_type.Lecture_type }}</td>
-                <td>{{ entry.subject.subject_name }}</td>
-                <td>{{ entry.room.room_number }}</td>
-                <td>{{ entry.timing.start_time }}</td>
-                <td>{{ entry.faculty.faculty_name }}</td>
-                <td>
-                    {% if entry.faculty_2 %}
-                    {{ entry.faculty_2.faculty_name }}
-                    {% else %}
-                    {{ entry.faculty_2|default:"N/A" }}
-                    {% endif %}
-                </td>
-
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table> -->
-
-
-
-
-
 </div>
 {% endblock %}
 
@@ -1032,6 +916,14 @@
             $("#roomGroup").show();
         }
     });
+    $("#submit-tt-btn").on("click", function () {
+    // Get the selected semester value
+    const semester = $("#semester").val();
+
+    // Redirect to the new URL
+    window.location.href = "/api/get_timetable/" + semester + "/";
+});
+
 
 </script>
 
