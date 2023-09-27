@@ -24,6 +24,7 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id):
 
     data = []
 
+
     for entry in timetable_entries:
         data.append({
             "day": entry.day,  # Day of the week
@@ -64,11 +65,13 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id):
 
         i += 1  # Move to the next entry
 
+    # print(data)
+
     context = {"timetable_entries": data}
 
     # Render the template and include the JSON data
-    # return render(request, "time-table.html", context)
-    return JsonResponse(data, safe=False)
+    return render(request, "time-table.html", context)
+    # return JsonResponse(data, safe=False)
 
 def timetablehome(request):
     form = SemesterSelectionForm(request.POST or None)
