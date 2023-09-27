@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from itertools import groupby
 from django.http import HttpResponse
 from django.template import loader
 from django.http import JsonResponse
@@ -113,3 +114,28 @@ def timetablehome(request):
         "time-table.html",
         {"form": form, "timetable_entries1": timetable_entries1},
     )
+
+
+
+def get_timetable_for_faculty(request, faculty_name):
+
+    try:
+        faculty = get_object_or_404(Faculty, faculty_name=faculty_name)
+    except Faculty.DoesNotExist:
+        return HttpResponse(f"Faculty with name {faculty_name} does not exist.")
+
+    timetable_entries = TimetableEntry.objects.filter(
+        faculty=faculty
+    )
+
+    days_of_week = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    timetable_entries = sorted(timetable_entries, key=lambda x: (days_of_week.index(x.day), x.timing.start_time))
+
+    data = {}
+    for day, entries in groupby(timetable_entries, key=lambda x: x.day):
+        data[day] = list(entries)
+
+    context = {"timetable_entries": data}
+    print(context)
+    # Render the template and include the JSON data
+    return render(request, "time-table.html", context)
