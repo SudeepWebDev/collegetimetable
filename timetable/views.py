@@ -21,7 +21,8 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id):
             timetable__semester=semester,
             timetable__course=course  
         )
-
+    days_of_week = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    timetable_entries = sorted(timetable_entries, key=lambda x: (days_of_week.index(x.day), x.timing.start_time))
     data = []
 
 
@@ -36,7 +37,9 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id):
             "faculty_2": entry.faculty_2.faculty_name if entry.faculty_2 else None,  # Faculty 2 name (if available)
         })
 
+    data = sorted(data, key=lambda x: (days_of_week.index(x["day"]), x["timing"]))
     # Iterate through entries to add breaks
+
     i = 0
     while i < len(data) - 1:
         current_timing = data[i]["timing"]
@@ -44,7 +47,6 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id):
 
         # Calculate the time difference in minutes
         time_diff_minutes = (datetime.combine(datetime.today(), next_timing) - datetime.combine(datetime.today(), current_timing)).total_seconds() / 60
-
         if time_diff_minutes > 60:
             # Calculate the number of breaks needed
             num_breaks = int(time_diff_minutes / 60)
@@ -65,13 +67,35 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id):
 
         i += 1  # Move to the next entry
 
-    # print(data)
+    for i in range(len(days_of_week)):
+            day_entries = [entry for entry in timetable_entries if entry.day == days_of_week[i]]
 
+            # If the first class on the day doesn't start at 8:30, add breaks
+            if day_entries and day_entries[0].timing.start_time > datetime.strptime("08:30:00", "%H:%M:%S").time():
+                first_class_time = day_entries[0].timing.start_time
+
+                # Calculate the number of breaks needed
+                num_breaks = int((datetime.combine(datetime.today(), first_class_time) - datetime.combine(datetime.today(), datetime.strptime("08:30:00", "%H:%M:%S").time())).total_seconds() / 60 / 60)
+
+                # Insert break entries
+                for j in range(num_breaks):
+                    break_entry = {
+                        "day": days_of_week[i],
+                        "lecture_type": "Break",
+                        "subject": "Break",
+                        "room": "",
+                        "timing": (datetime.combine(datetime.today(), datetime.strptime("08:30:00", "%H:%M:%S").time()) + timedelta(hours=j)).time(),
+                        "faculty": "",
+                        "faculty_2": None,
+                    }
+                    data.append(break_entry)
+    data = sorted(data, key=lambda x: (days_of_week.index(x["day"]), x["timing"]))
     context = {"timetable_entries": data}
 
     # Render the template and include the JSON data
     return render(request, "time-table.html", context)
     # return JsonResponse(data, safe=False)
+
 
 def timetablehome(request):
     form = SemesterSelectionForm(request.POST or None)
