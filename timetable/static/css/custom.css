@@ -177,3 +177,13 @@ table tbody td:first-child, table thead th:first-child {
     background-color: #fff; 
     z-index: 2;
 }
+
+.large-screen-element {
+    display: block;
+}
+
+@media screen and (max-width: 600px) {
+    .large-screen-element {
+        display: none; 
+    }
+}
