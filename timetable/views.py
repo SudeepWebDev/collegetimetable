@@ -63,7 +63,7 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id):
                     "faculty_2": None,
                 }
                 data.insert(i + 1, break_entry)
-                i += 1  # Skip the added break entry
+                i += 1  
 
         i += 1  # Move to the next entry
 

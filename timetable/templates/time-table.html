@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% block headScript %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+{% endblock %}
 {% block content %}
 <div class="container mt-4">
     <div class="row justify-content-center">
@@ -66,406 +69,6 @@
 
         </div>
     </div>
-
-
-
-    <!-- <div class="container">
-        <div class="table-responsive mt-4">
-            <table class="table table-bordered text-center" id="timetable-table">
-                <thead>
-                    <tr class="bg-light-gray">
-                        <th class="text-uppercase">Time
-                        </th>
-                        <th class="text-uppercase">08:30</th>
-                        <th class="text-uppercase">09:30</th>
-                        <th class="text-uppercase">10:30</th>
-                        <th class="text-uppercase">11:30</th>
-                        <th class="text-uppercase">12:30</th>
-                        <th class="text-uppercase">01:30</th>
-                        <th class="text-uppercase">02:30</th>
-                        <th class="text-uppercase">03:30</th>
-                        <th class="text-uppercase">04:30</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="align-middle">Monday</td>
-                        <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
-                                O Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
-                                O Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="align-middle">Tuesday</td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">DAV</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">Jagmohan</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Th</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Th</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Num
-                                O
-                                Th</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="align-middle">Wednesday</td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Num
-                                O
-                                Th</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Num
-                                O
-                                Th</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-
-                        </td>
-                        <td>
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">O
-                                S</span>
-                            <div class="margin-10px-top font-size14">04</div>
-                            <div class="font-size13 text-light-gray">Parul Jain</div>
-
-                        <td>
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">O
-                                S</span>
-                            <div class="margin-10px-top font-size14">04</div>
-                            <div class="font-size13 text-light-gray">Parul Jain</div>
-
-                        </td>
-
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="align-middle">Thursday</td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
-                                O Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
-                                O Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">O
-                                S</span>
-                            <div class="margin-10px-top font-size14">04</div>
-                            <div class="font-size13 text-light-gray">Parul Jain</div>
-
-                        </td>
-                        <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Th
-                            </span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="align-middle">Friday</td>
-                        <td>
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">O
-                                S Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Parul Jain</div>
-
-                        </td>
-                        <td>
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">O
-                                S Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Parul Jain</div>
-
-                        </td>
-                        <td>
-                            <span
-                                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">DAV</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Jaghmohan</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">DAV</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Jaghmohan</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="align-middle">Saturday</td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div> -->
-
 
     <div class="container">
         <button type="button" class="btn btn-outline-primary mt-3 " id="download-tt-btn">Download</button>
@@ -611,7 +214,6 @@
 {% block script %}
 <script src="{% static 'js/base.js' %}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
     $("#selectOption").on("change", function () {
@@ -633,22 +235,41 @@
         // $("#timetable-table").show();
     });
 
-    const printBtn = document.getElementById('download-tt-btn')
-    if (printBtn) {
+    // const printBtn = document.getElementById('download-tt-btn')
+    // if (printBtn) {
 
-        printBtn.addEventListener('click', function toPDF() {
-            html2pdf()
-                .set({
-                    margin: 1,
-                    filename: "timetable.pdf",
-                    image: { type: "jpeg", quality: 1 },
-                    enableLinks: true,
-                    jsPDF: { format: "A4", orientation: "portrait" }
-                })
-                .from(document.querySelector(".topic-content"))
-                .save();
-        })
-    }
+    //     printBtn.addEventListener('click', function toPDF() {
+    //         html2pdf()
+    //             .set({
+    //                 margin: 1,
+    //                 filename: "timetable.pdf",
+    //                 image: { type: "jpeg", quality: 1 },
+    //                 enableLinks: true,
+    //                 jsPDF: { format: "A4", orientation: "landscape" },
+                    
+    //             })
+    //             .from(document.querySelector("#timetable-table"))
+    //             .save();
+    //     })
+    // }
+    const printBtn = document.getElementById('download-tt-btn');
+
+
+if (printBtn) {
+    printBtn.addEventListener('click', function toPDF() {
+        html2pdf()
+            .set({
+                margin: 0,
+                filename: "timetable.pdf",
+                image: { type: "jpeg", quality: 0.98 },
+                enableLinks: true,
+                jsPDF: { format: "A4", orientation: "landscape" },
+            })
+            .from(document.querySelector("#timetable-table"))
+            .save();
+    });
+}
+
 
 </script>
 
