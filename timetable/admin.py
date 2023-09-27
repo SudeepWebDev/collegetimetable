@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Course, Subject, Room, Timing, Faculty, Semester, Timetable, TimetableEntry, Lecture
+from .models import Course, Subject, Room, Timing, Faculty, Lecture, Semester, Timetable, TimetableEntry
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
@@ -29,13 +29,19 @@ class LectureAdmin(admin.ModelAdmin):
 class SemesterAdmin(admin.ModelAdmin):
     list_display = ["semester_name", "is_current_sem"]
 
+class TimetableEntryInline(admin.TabularInline):
+    model = TimetableEntry
+    extra = 1  
+
 @admin.register(Timetable)
 class TimetableAdmin(admin.ModelAdmin):
     list_display = [
         "course",
+        "course_code",
         "semester",
         "is_current_sem",
     ]
+    inlines = [TimetableEntryInline]
 
 @admin.register(TimetableEntry)
 class TimetableEntryAdmin(admin.ModelAdmin):

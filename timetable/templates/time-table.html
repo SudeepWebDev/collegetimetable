@@ -491,403 +491,114 @@
                     <tr>
                         <td class="align-middle">Monday</td>
                         {% for entry in timetable_entries %}
-                          {% if entry.day == 'MONDAY' %}
-                            <td>
-                              {% if entry.subject == 'Break' %}
-                                <span class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
-                              {% else %}
-                                <span class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{ entry.subject }}</span>
-                                <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{ entry.room.room_number }}</div>
-                                <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
-                              {% endif %}
-                            </td>
-                          {% endif %}
+                        {% if entry.day == 'MONDAY' %}
+                        <td>
+                            {% if entry.subject == 'Break' %}
+                            <span
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
+                            {% else %}
+                            <span
+                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject }}</span>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
+                            {% endif %}
+                        </td>
+                        {% endif %}
                         {% endfor %}
-                        <!-- <td class="align-middle">Monday</td>
-                        {% for entry in timetable_entries %}
-                          {% if entry.day == 'MONDAY' %}
-                            <td>
-                              {% if entry.subject == 'Break' %}
-                                <span class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
-                              {% else %}
-                                <span class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{ entry.subject }}</span>
-                                <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{ entry.room.room_number }}</div>
-                                <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
-                              {% endif %}
-                            </td>
-                          {% endif %}
-                        {% endfor %} -->
-
-                        <!-- <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
-                                O Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
-                                O Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td> -->
                     </tr>
 
                     <tr>
                         <td class="align-middle">Tuesday</td>
+                        {% for entry in timetable_entries %}
+                        {% if entry.day == 'TUESDAY' %}
                         <td>
+                            {% if entry.subject == 'Break' %}
                             <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
+                            {% else %}
                             <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
+                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject }}</span>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
+                            {% endif %}
                         </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">DAV</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">Jagmohan</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Th</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Th</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Num
-                                O
-                                Th</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
+                        {% endif %}
+                        {% endfor %}
                     </tr>
 
                     <tr>
                         <td class="align-middle">Wednesday</td>
+                        {% for entry in timetable_entries %}
+                        {% if entry.day == 'WEDNESDAY' %}
                         <td>
+                            {% if entry.subject == 'Break' %}
                             <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
+                            {% else %}
+                            <span
+                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject }}</span>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
+                            {% endif %}
                         </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Num
-                                O
-                                Th</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Num
-                                O
-                                Th</span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-
-                        </td>
-                        <td>
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">O
-                                S</span>
-                            <div class="margin-10px-top font-size14">04</div>
-                            <div class="font-size13 text-light-gray">Parul Jain</div>
-
-                        <td>
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">O
-                                S</span>
-                            <div class="margin-10px-top font-size14">04</div>
-                            <div class="font-size13 text-light-gray">Parul Jain</div>
-
-                        </td>
-
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
+                        {% endif %}
+                        {% endfor %}
                     </tr>
 
                     <tr>
                         <td class="align-middle">Thursday</td>
+                        {% for entry in timetable_entries %}
+                        {% if entry.day == 'THURSDAY' %}
                         <td>
+                            {% if entry.subject == 'Break' %}
                             <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
-                                O Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
-                        </td>
-                        <td>
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
+                            {% else %}
                             <span
-                                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Num
-                                O Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">LKS</div>
+                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject }}</span>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
+                            {% endif %}
                         </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">O
-                                S</span>
-                            <div class="margin-10px-top font-size14">04</div>
-                            <div class="font-size13 text-light-gray">Parul Jain</div>
-
-                        </td>
-                        <td>
-                            <span
-                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">DSA
-                                Th
-                            </span>
-                            <div class="margin-10px-top font-size14">02</div>
-                            <div class="font-size13 text-light-gray">Archana Gahlaut</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
+                        {% endif %}
+                        {% endfor %}
                     </tr>
 
                     <tr>
                         <td class="align-middle">Friday</td>
+                        {% for entry in timetable_entries %}
+                        {% if entry.day == 'FRIDAY' %}
                         <td>
+                            {% if entry.subject == 'Break' %}
                             <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">O
-                                S Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Parul Jain</div>
-
-                        </td>
-                        <td>
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
+                            {% else %}
                             <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">O
-                                S Lab</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Parul Jain</div>
-
+                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject }}</span>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
+                            {% endif %}
                         </td>
-                        <td>
-                            <span
-                                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">DAV</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Jaghmohan</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">DAV</span>
-                            <div class="margin-10px-top font-size14">CL4</div>
-                            <div class="font-size13 text-light-gray">Jaghmohan</div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
+                        {% endif %}
+                        {% endfor %}
                     </tr>
                     <tr>
                         <td class="align-middle">Saturday</td>
+                        {% for entry in timetable_entries %}
+                        {% if entry.day == 'SATURDAY' %}
                         <td>
+                            {% if entry.subject == 'Break' %}
                             <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
+                            {% else %}
                             <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
+                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject }}</span>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
+                            {% endif %}
                         </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
-                        <td>
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14"></div>
-                            <div class="font-size13 text-light-gray"></div>
-                        </td>
+                        {% endif %}
+                        {% endfor %}
                     </tr>
                 </tbody>
             </table>
@@ -916,13 +627,14 @@
             $("#roomGroup").show();
         }
     });
-    $("#submit-tt-btn").on("click", function () {
-    // Get the selected semester value
-    const semester = $("#semester").val();
+    $("#submit-tt-btn").on("click", function (e) {
+        e.preventDefault();
+        // Get the selected semester value
+        const semester = $("#semester").val();
 
-    // Redirect to the new URL
-    window.location.href = "/api/get_timetable/" + semester + "/";
-});
+        // Redirect to the new URL
+        window.location.href = "/api/get_timetable/" + semester + "/";
+    });
 
 
 </script>
