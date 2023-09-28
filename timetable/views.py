@@ -117,6 +117,35 @@ def timetablehome(request):
 
 
 
+# def get_timetable_for_faculty(request, faculty_name):
+
+#     try:
+#         faculty = get_object_or_404(Faculty, faculty_name=faculty_name)
+#     except Faculty.DoesNotExist:
+#         return HttpResponse(f"Faculty with name {faculty_name} does not exist.")
+
+#     timetable_entries = TimetableEntry.objects.filter(
+#         faculty=faculty
+#     )
+
+#     days_of_week = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+#     timetable_entries = sorted(timetable_entries, key=lambda x: (days_of_week.index(x.day), x.timing.start_time))
+
+#     data = {}
+#     for day, entries in groupby(timetable_entries, key=lambda x: x.day):
+#         data[day] = list(entries)
+
+#     context = {"timetable_entries": data}
+#     print(context)
+
+#     return render(request, "time-table.html", context)
+
+
+from itertools import groupby
+from datetime import datetime, timedelta
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+
 def get_timetable_for_faculty(request, faculty_name):
 
     try:
@@ -130,12 +159,66 @@ def get_timetable_for_faculty(request, faculty_name):
 
     days_of_week = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
     timetable_entries = sorted(timetable_entries, key=lambda x: (days_of_week.index(x.day), x.timing.start_time))
+    data = []
 
-    data = {}
-    for day, entries in groupby(timetable_entries, key=lambda x: x.day):
-        data[day] = list(entries)
+    for entry in timetable_entries:
+        data.append({
+            "day": entry.day,
+            "lecture_type": entry.lecture_type.Lecture_type,
+            "subject": entry.subject.subject_name,
+            "room": entry.room.room_number,
+            "timing": entry.timing.start_time,
+            "faculty": entry.faculty.faculty_name,
+            "faculty_2": entry.faculty_2.faculty_name if entry.faculty_2 else None,
+        })
 
+    data = sorted(data, key=lambda x: (days_of_week.index(x["day"]), x["timing"]))
+
+    i = 0
+    while i < len(data) - 1:
+        current_timing = data[i]["timing"]
+        next_timing = data[i + 1]["timing"]
+
+        time_diff_minutes = (datetime.combine(datetime.today(), next_timing) - datetime.combine(datetime.today(), current_timing)).total_seconds() / 60
+        if time_diff_minutes > 60:
+            num_breaks = int(time_diff_minutes / 60)
+
+            for j in range(num_breaks - 1):
+                break_entry = {
+                    "day": data[i]["day"],
+                    "lecture_type": "Break",
+                    "subject": "Break",
+                    "room": "",
+                    "timing": (datetime.combine(datetime.today(), current_timing) + timedelta(minutes=60 * (j + 1))).time(),
+                    "faculty": "",
+                    "faculty_2": None,
+                }
+                data.insert(i + 1, break_entry)
+                i += 1  
+
+        i += 1
+
+    for i in range(len(days_of_week)):
+        day_entries = [entry for entry in timetable_entries if entry.day == days_of_week[i]]
+
+        if day_entries and day_entries[0].timing.start_time > datetime.strptime("08:30:00", "%H:%M:%S").time():
+            first_class_time = day_entries[0].timing.start_time
+            num_breaks = int((datetime.combine(datetime.today(), first_class_time) - datetime.combine(datetime.today(), datetime.strptime("08:30:00", "%H:%M:%S").time())).total_seconds() / 60 / 60)
+
+            for j in range(num_breaks):
+                break_entry = {
+                    "day": days_of_week[i],
+                    "lecture_type": "Break",
+                    "subject": "Break",
+                    "room": "",
+                    "timing": (datetime.combine(datetime.today(), datetime.strptime("08:30:00", "%H:%M:%S").time()) + timedelta(hours=j)).time(),
+                    "faculty": "",
+                    "faculty_2": None,
+                }
+                data.append(break_entry)
+
+    data = sorted(data, key=lambda x: (days_of_week.index(x["day"]), x["timing"]))
     context = {"timetable_entries": data}
-    print(context)
-    # Render the template and include the JSON data
+    # return JsonResponse(data, safe=False)
+
     return render(request, "time-table.html", context)
