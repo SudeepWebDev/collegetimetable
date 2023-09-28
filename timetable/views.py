@@ -141,11 +141,6 @@ def timetablehome(request):
 #     return render(request, "time-table.html", context)
 
 
-from itertools import groupby
-from datetime import datetime, timedelta
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-
 def get_timetable_for_faculty(request, faculty_name):
 
     try:
