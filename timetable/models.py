@@ -123,6 +123,15 @@ class TimetableEntry(models.Model):
         related_name="faculty_2",
         verbose_name="Faculty 2 (for lab)",
     )
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name="course"
+        # default=your_default_course_instance,  # Set your default course instance here
+    )
+
 
     def __str__(self):
         return f"{self.day} - {self.subject} - {self.timing} - {self.faculty}"

@@ -19,6 +19,7 @@
             </select>
             <form method="post">
                 {% csrf_token %}
+                <!-- Select Course -->
                 <div id="courseGroup" class="mt-3" style="display: none;">
                     <label for="course" class="form-label">Select Course:</label>
                     <select class="form-select" id="course" name="{{ form.course.name }}" aria-label="Select Course">
@@ -109,6 +110,7 @@
                                 class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
                             <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} ||
                                 {{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
                             <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
                             {% endif %}
                         </td>
@@ -128,8 +130,8 @@
                             {% else %}
                             <span
                                 class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }}
-                                ||{{entry.room }}</div>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }}||{{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
                             <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
                             {% endif %}
                         </td>
@@ -148,8 +150,8 @@
                             {% else %}
                             <span
                                 class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }}
-                                ||{{entry.room }}</div>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }}||{{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
                             <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
                             {% endif %}
                         </td>
@@ -168,8 +170,8 @@
                             {% else %}
                             <span
                                 class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }}
-                                ||{{entry.room }}</div>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }}||{{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
                             <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
                             {% endif %}
                         </td>
@@ -188,8 +190,8 @@
                             {% else %}
                             <span
                                 class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }}
-                                ||{{entry.room }}</div>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }}||{{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
                             <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
                             {% endif %}
                         </td>
@@ -207,8 +209,8 @@
                             {% else %}
                             <span
                                 class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }}
-                                ||{{entry.room }}</div>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} ||{{entry.room }}</div>
+                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
                             <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
                             {% endif %}
                         </td>
