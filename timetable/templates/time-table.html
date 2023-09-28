@@ -56,7 +56,7 @@
                     <select class="form-select" id="room" name="{{ form.room.name }}" aria-label="Select Room">
                         <option selected disabled>Select Room</option>
                         {% for room in form.room.field.queryset %}
-                        <option value="{{ room.id }}">{{ room.room_number }}</option>
+                        <option value="{{ room.room_number }}">{{ room.room_number }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -108,8 +108,7 @@
                             {% else %}
                             <span
                                 class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} ||
-                                {{entry.room }}</div>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
                             <div class="font-size13 text-light-gray">{{ entry.course}}</div>
                             <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
                             {% endif %}
