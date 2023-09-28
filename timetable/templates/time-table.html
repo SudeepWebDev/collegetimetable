@@ -53,8 +53,8 @@
 
                 <!-- Select Room -->
                 <div id="roomGroup" class="form-group mt-3" style="display: none;">
-                    <label for="{{ form.room.id_for_label }}" class="form-label">Select Room:</label>
-                    <select class="form-select" id="{{ form.room.id_for_label }}" name="{{ form.room.name }}"
+                    <label for="room" class="form-label">Select Room:</label>
+                    <select class="form-select" id="room" name="{{ form.room.name }}"
                         aria-label="Select Room">
                         <option selected disabled>Select Room</option>
                         {% for room in form.room.field.queryset %}
@@ -241,48 +241,23 @@
     const semester = $("#semester").val();
     const course = $("#course").val();
     const faculty = $("#faculty").val();
+    const room = $("#room").val();
 
     if ($("#facultyGroup").is(":visible") && faculty !== "") {
-        window.location.href = "/faculty-timetable/" + faculty + "/";
+        window.location.href = "/timetable/faculty" + faculty + "/";
+    } else if ($("#roomGroup").is(":visible") && room !== "") {
+        window.location.href = "/timetable/room/" + room + "/";
     } else {
-        window.location.href = "/course-timetable/" + semester + "/" + course + "/";
+        window.location.href = "/timetable/course" + semester + "/" + course + "/";
     }
     // $("#timetable-table").show();
 });
 
-
-    // const printBtn = document.getElementById('download-tt-btn')
-    // if (printBtn) {
-
-    //     printBtn.addEventListener('click', function toPDF() {
-    //         html2pdf()
-    //             .set({
-    //                 margin: 1,
-    //                 filename: "timetable.pdf",
-    //                 image: { type: "jpeg", quality: 1 },
-    //                 enableLinks: true,
-    //                 jsPDF: { format: "A4", orientation: "landscape" },
-
-    //             })
-    //             .from(document.querySelector("#timetable-table"))
-    //             .save();
-    //     })
-    // }
     const printBtn = document.getElementById('download-tt-btn');
 
 
     if (printBtn) {
         printBtn.addEventListener('click', function toPDF() {
-            // html2pdf()
-            //     .set({
-            //         margin: 0,
-            //         filename: "timetable.pdf",
-            //         image: { type: "jpeg", quality: 1 },
-            //         enableLinks: true,
-            //         jsPDF: { format: "A4", orientation: "landscape" },
-            //     })
-            //     .from(document.querySelector("#timetable-table"))
-            //     .save();
         const element = document.getElementById('timetable-table'); 
 
         html2canvas(element).then(canvas => {

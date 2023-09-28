@@ -217,3 +217,80 @@ def get_timetable_for_faculty(request, faculty_name):
     # return JsonResponse(data, safe=False)
 
     return render(request, "time-table.html", context)
+
+def get_timetable_for_room(request, room_number):
+
+    try:
+        room = get_object_or_404(Room, room_number=room_number)
+    except Room.DoesNotExist:
+        return HttpResponse(f"Room with number {room_number} does not exist.")
+
+    timetable_entries = TimetableEntry.objects.filter(
+        room=room
+    )
+
+    days_of_week = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    timetable_entries = sorted(timetable_entries, key=lambda x: (days_of_week.index(x.day), x.timing.start_time))
+    data = []
+
+    for entry in timetable_entries:
+        data.append({
+            "day": entry.day,
+            "lecture_type": entry.lecture_type.Lecture_type,
+            "subject": entry.subject.subject_name,
+            "room": entry.room.room_number,
+            "timing": entry.timing.start_time,
+            "faculty": entry.faculty.faculty_name,
+            "faculty_2": entry.faculty_2.faculty_name if entry.faculty_2 else None,
+        })
+
+    data = sorted(data, key=lambda x: (days_of_week.index(x["day"]), x["timing"]))
+
+    i = 0
+    while i < len(data) - 1:
+        current_timing = data[i]["timing"]
+        next_timing = data[i + 1]["timing"]
+
+        time_diff_minutes = (datetime.combine(datetime.today(), next_timing) - datetime.combine(datetime.today(), current_timing)).total_seconds() / 60
+        if time_diff_minutes > 60:
+            num_breaks = int(time_diff_minutes / 60)
+
+            for j in range(num_breaks - 1):
+                break_entry = {
+                    "day": data[i]["day"],
+                    "lecture_type": "Break",
+                    "subject": "Break",
+                    "room": "",
+                    "timing": (datetime.combine(datetime.today(), current_timing) + timedelta(minutes=60 * (j + 1))).time(),
+                    "faculty": "",
+                    "faculty_2": None,
+                }
+                data.insert(i + 1, break_entry)
+                i += 1  
+
+        i += 1
+
+    for i in range(len(days_of_week)):
+        day_entries = [entry for entry in timetable_entries if entry.day == days_of_week[i]]
+
+        if day_entries and day_entries[0].timing.start_time > datetime.strptime("08:30:00", "%H:%M:%S").time():
+            first_class_time = day_entries[0].timing.start_time
+            num_breaks = int((datetime.combine(datetime.today(), first_class_time) - datetime.combine(datetime.today(), datetime.strptime("08:30:00", "%H:%M:%S").time())).total_seconds() / 60 / 60)
+
+            for j in range(num_breaks):
+                break_entry = {
+                    "day": days_of_week[i],
+                    "lecture_type": "Break",
+                    "subject": "Break",
+                    "room": "",
+                    "timing": (datetime.combine(datetime.today(), datetime.strptime("08:30:00", "%H:%M:%S").time()) + timedelta(hours=j)).time(),
+                    "faculty": "",
+                    "faculty_2": None,
+                }
+                data.append(break_entry)
+
+    data = sorted(data, key=lambda x: (days_of_week.index(x["day"]), x["timing"]))
+    context = {"timetable_entries": data}
+    # return JsonResponse(data, safe=False)
+
+    return render(request, "time-table.html", context)
