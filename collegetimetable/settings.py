@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-f5o5_0s9fz5y&8)z+bsxh)--aca$a%-2wv#+3o&+w-js4l-&3g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'collegetimetable.urls'
@@ -118,25 +119,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'productionfiles'
 STATIC_URL = 'static/'
-# settings.py
-
-# Define the path where Django will collect your static files.
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # This is where collected static files will be stored during deployment.
-# settings.py
-
-
-
-# Add the path to your project's static files directory
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-
-# Additional directories where Django should look for static files.
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'timetable', 'static'),  # Add the "static" directory of your "timetable" app to STATICFILES_DIRS.
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

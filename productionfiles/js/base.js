@@ -25,9 +25,4 @@ class ScrollableElement {
     }
   }
   
-  const featureSlideshowElement = document.querySelector('table');
-  if (featureSlideshowElement) {
-    const featureScrollable = new ScrollableElement('table', {
-      scrollSpeed: 150
-    });
-  }
+  const tableScrollable = new ScrollableElement('.table-responsive');

@@ -34,7 +34,7 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id):
     except Course.DoesNotExist:
         return HttpResponse(
             f"Course with ID {course_id} does not exist."
-        )  # Debugging output
+        ) 
 
     timetable_entries = TimetableEntry.objects.filter(
         timetable__semester=semester, timetable__course=course
@@ -147,18 +147,7 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id):
     # Render the template and include the JSON data
     return render(request, "time-table.html", context)
     # return JsonResponse(data, safe=False)
-
-
-
-
-
-
-
-
-
-
-
-
+    
 def get_timetable_for_faculty(request, faculty_name):
     try:
         faculty = get_object_or_404(Faculty, faculty_name=faculty_name)
