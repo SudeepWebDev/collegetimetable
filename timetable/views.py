@@ -25,7 +25,7 @@ def timetablehome(request):
         "time-table.html",
         {"form": form, "timetable_entries1": timetable_entries1},
     )
-
+# Common for both faculty, course and room --> sorting and adding breaks
 def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bool):
     days_of_week = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
     timetable_entries = sorted(
