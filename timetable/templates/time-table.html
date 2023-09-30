@@ -73,7 +73,13 @@
 
         </div>
     </div>
+<style>
+    thead, .align-middle {
+        background:  rgb(249, 202, 36)!important;
+    }
 
+    
+</style>
     <div class="container">
         <button type="button" class="btn btn-outline-primary mt-3 d-flex" id="download-tt-btn"><i
                 class="bi bi-box-arrow-down "></i><span class="large-screen-element"> &nbsp; Download</span></button>
@@ -81,8 +87,7 @@
             <table class="table table-bordered text-center" id="timetable-table">
                 <thead>
                     <tr >
-                        <th class="text-uppercase" id="day-time-slant">Day \ Time
-                        </th>
+                        <th class="text-uppercase">Day \ Time</th>
                         <th class="text-uppercase">08:30</th>
                         <th class="text-uppercase">09:30</th>
                         <th class="text-uppercase">10:30</th>
@@ -95,12 +100,12 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    {% for dayloop in daysloop %}
                     <tr>
-                        <td class="align-middle">Monday</td>
+                        <td class="align-middle">{{dayloop}}</td>
                         {% if timetable_entries %}
                         {% for entry in timetable_entries %}
-                        {% if entry.day == 'MONDAY' %}
+                        {% if entry.day == dayloop|upper %}
                         <td>
                             {% if entry.subject == 'Break' %}
                             <span
@@ -117,105 +122,7 @@
                         {% endfor %}
                         {% endif %}
                     </tr>
-
-                    <tr>
-                        <td class="align-middle">Tuesday</td>
-                        {% for entry in timetable_entries %}
-                        {% if entry.day == 'TUESDAY' %}
-                        <td>
-                            {% if entry.subject == 'Break' %}
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
-                            {% else %}
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
-                            {% endif %}
-                        </td>
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
-
-                    <tr>
-                        <td class="align-middle">Wednesday</td>
-                        {% for entry in timetable_entries %}
-                        {% if entry.day == 'WEDNESDAY' %}
-                        <td>
-                            {% if entry.subject == 'Break' %}
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
-                            {% else %}
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
-                            {% endif %}
-                        </td>
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
-
-                    <tr>
-                        <td class="align-middle">Thursday</td>
-                        {% for entry in timetable_entries %}
-                        {% if entry.day == 'THURSDAY' %}
-                        <td>
-                            {% if entry.subject == 'Break' %}
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
-                            {% else %}
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
-                            {% endif %}
-                        </td>
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
-
-                    <tr>
-                        <td class="align-middle">Friday</td>
-                        {% for entry in timetable_entries %}
-                        {% if entry.day == 'FRIDAY' %}
-                        <td>
-                            {% if entry.subject == 'Break' %}
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
-                            {% else %}
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
-                            {% endif %}
-                        </td>
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <td class="align-middle">Saturday</td>
-                        {% for entry in timetable_entries %}
-                        {% if entry.day == 'SATURDAY' %}
-                        <td>
-                            {% if entry.subject == 'Break' %}
-                            <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
-                            {% else %}
-                            <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
-                            {% endif %}
-                        </td>
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
