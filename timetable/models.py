@@ -129,7 +129,6 @@ class TimetableEntry(models.Model):
         blank=True,
         null=True,
         verbose_name="course"
-        # default=your_default_course_instance,  # Set your default course instance here
     )
 
 
