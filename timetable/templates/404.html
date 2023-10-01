@@ -1,12 +1,70 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found (404)</title>
+    <title>Page Not Found - 404 Error</title>
+    <style>
+        :root {
+            --p-bg-color-1: rgb(10, 20, 110);
+            --p-bg-color-2: #0071EB;
+            --white: white;
+            --blue: blue;
+            --black: black;
+            --cornflowerblue: cornflowerblue;
+            --warm-yellow: rgb(249, 202, 36);
+            --vibrant-orange: rgb(240, 147, 43);
+
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: var(--p-bg-color-1);
+            /* Bootstrap's danger color */
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: var(--p-bg-color-2);
+            /* Bootstrap's info color */
+        }
+    </style>
 </head>
-<body>
-    <h1>404 - Page Not Found</h1>
-    <p>Oops! The page you're looking for might have been moved, deleted, or does not exist.</p>
+
+<body >
+    <div class="container">
+        <img src="{% static 'images/err.png' %}">
+    </div>
+    <div class="container">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" width="100">
+        <h1>404 - Page Not Found</h1>
+        <p>Oops! It seems like the page you are looking for does not exist.</p>
+        <p>Return to <a href="/timetable">home</a> or contact support.</p>
+    </div>
 </body>
+
 </html>
