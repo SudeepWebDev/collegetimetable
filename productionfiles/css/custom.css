@@ -1,14 +1,3 @@
-:root {
-    --p-bg-color-1: rgb(10, 20, 110);
-    --p-bg-color-2: #0071EB;
-    --white: white;
-    --blue: blue;
-    --black: black;
-    --cornflowerblue: cornflowerblue;
-    --warm-yellow: rgb(249, 202, 36);
-    --vibrant-orange: rgb(240, 147, 43);
-
-}
 * {
     user-select: none;
 }
@@ -180,16 +169,15 @@
     padding: .75rem;
     vertical-align: top;
     border-top: 1px solid #000000;
-    white-space: nowrap;
+    white-space: nowrap;    
 }
 
-table tbody td:first-child,
-table thead th:first-child {
+table tbody td:first-child, table thead th:first-child {
     position: sticky;
     left: 0;
     /* background-color: #fff; 
      */
-    background-color: rgb(255, 232, 147);
+     background-color:  rgb(255, 232, 147) ;
     z-index: 2;
 }
 
@@ -197,37 +185,8 @@ table thead th:first-child {
     display: block;
 }
 
-
-
-
-
-/* study-tags-search-section */
-
-.nav-bottom-header {
-    display: flex;
-    flex-direction: column;
-    margin: 40px;
-    text-align: center;
-    border-radius: 10px;
-    background: linear-gradient(to bottom right, var(--p-bg-color-1), var(--p-bg-color-2));
-    color: var(--white);
-
-}
-
-.study-text,
-.search-appearance,
-.tag-icons {
-    margin-bottom: 20px;
-
-}
-
-.nav-bottom-header div.study-text {
-    margin: 30px;
-
-}
-
 @media screen and (max-width: 600px) {
     .large-screen-element {
-        display: none;
+        display: none; 
     }
 }
