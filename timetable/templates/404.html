@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +36,6 @@
         h1 {
             font-size: 3em;
             color: var(--p-bg-color-1);
-            /* Bootstrap's danger color */
         }
 
         p {
@@ -50,15 +50,11 @@
 
         a {
             color: var(--p-bg-color-2);
-            /* Bootstrap's info color */
         }
     </style>
 </head>
 
 <body >
-    <div class="container">
-        <img src="{% static 'images/err.png' %}">
-    </div>
     <div class="container">
         <img src="{% static 'images/logo.png' %}" alt="Logo" width="100">
         <h1>404 - Page Not Found</h1>
