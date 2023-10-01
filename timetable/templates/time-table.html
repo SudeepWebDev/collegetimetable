@@ -73,18 +73,25 @@
 
         </div>
     </div>
-<style>
-    thead, .align-middle {
-        background:  rgb(249, 202, 36)!important;
-    }
-</style>
+    <style>
+        thead,
+        .align-middle {
+            background: rgb(249, 202, 36) !important;
+        }
+
+        caption {
+            caption-side: top;
+        }
+    </style>
+
     <div class="container">
         <button type="button" class="btn btn-outline-primary mt-3 d-flex" id="download-tt-btn"><i
-                class="bi bi-box-arrow-down "></i><span class="large-screen-element"> &nbsp; Download</span></button>              
+                class="bi bi-box-arrow-down "></i><span class="large-screen-element"> &nbsp; Download</span></button>
         <div class="table-responsive mt-4">
             <table class="table table-bordered text-center" id="timetable-table">
+                <caption></caption>
                 <thead>
-                    <tr >
+                    <tr>
                         <th class="text-uppercase">Period</th>
                         <th class="text-uppercase">I</th>
                         <th class="text-uppercase">II</th>
@@ -97,7 +104,7 @@
                         <th class="text-uppercase">IX</th>
 
                     </tr>
-                    <tr >
+                    <tr>
                         <th class="text-uppercase">Day \ Time</th>
                         <th class="text-uppercase">08:30</th>
                         <th class="text-uppercase">09:30</th>
@@ -124,7 +131,8 @@
                             {% else %}
                             <span
                                 class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} || {{entry.room }}</div>
+                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} ||
+                                {{entry.room }}</div>
                             <div class="font-size13 text-light-gray">{{ entry.course}}</div>
                             <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
                             {% endif %}
@@ -149,9 +157,9 @@
     $("#selectOption").on("change", function () {
         const currentPath = window.location.pathname;
         if (currentPath == "/timetable/") {
-        $("#submit-tt-btn").prop("disabled", false);
-        
-    }
+            $("#submit-tt-btn").prop("disabled", false);
+
+        }
         // $("#submit-tt-btn").prop("disabled", false);
 
         const selectedOption = $(this).val();
@@ -190,8 +198,20 @@
     }
     if ($("#reselect-tt-btn")) {
         $("#reselect-tt-btn").on("click", function () {
-            window.location.href = "/timetable/";            
+            window.location.href = "/timetable/";
         })
+    }
+    const cap = $("caption");
+    const pathSegments = currentPath.split('/');
+    const retrived_tt_val = pathSegments[pathSegments.length - 2];
+    if (cap.length > 0) {
+        if (pathSegments[pathSegments.length - 3] == "faculty") {
+            cap.text("Faculty Name: " + decodeURIComponent(retrived_tt_val));
+        } else if (pathSegments[pathSegments.length - 3] == "room") {
+            cap.text("Room Number: " + decodeURIComponent(retrived_tt_val));
+        } else if (pathSegments[pathSegments.length - 4] == "course") {
+            cap.text("Course: " + decodeURIComponent(retrived_tt_val) + " || " + "Semester: " + decodeURIComponent(pathSegments[pathSegments.length - 3]));
+        }
     }
     const printBtn = document.getElementById('download-tt-btn');
 
@@ -214,9 +234,6 @@
         }
         )
     }
-
-
-
 
 </script>
 
