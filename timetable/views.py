@@ -42,8 +42,12 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                 "subject": entry.subject.subject_name,  # Subject name
                 "room": entry.room.room_number if room_bool else "",  # Room number
                 "timing": entry.timing.start_time,  # Timing/start time
-                "faculty": entry.faculty.faculty_name if faculty_bool else "",  # Faculty name
-                "faculty_2": entry.faculty_2.faculty_name if entry.faculty_2 else None,  # Faculty 2 name (if available)
+                "faculty": entry.faculty.faculty_name
+                if faculty_bool
+                else "",  # Faculty name
+                "faculty_2": entry.faculty_2.faculty_name
+                if entry.faculty_2
+                else None,  # Faculty 2 name (if available)
                 "course": entry.course if course_bool else "",
             }
         )
@@ -83,7 +87,7 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                 i += 1
 
         i += 1  # Move to the next entry
-
+    
     for i in range(len(days_of_week)):
         day_entries = [
             entry for entry in timetable_entries if entry.day == days_of_week[i]
@@ -127,21 +131,95 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                     "faculty": "",
                     "faculty_2": None,
                 }
+                data.append(break_entry) 
+    for i in range(len(days_of_week)):
+        day_entries = [
+            entry for entry in timetable_entries if entry.day == days_of_week[i]
+        ]
+
+        # If the last class on the day doesn't end at 4:30, add breaks
+        if (
+            day_entries
+            and day_entries[-1].timing.end_time
+            < datetime.strptime("17:30:00", "%H:%M:%S").time()
+        ):
+            last_class_end_time = day_entries[-1].timing.end_time
+
+            # Calculate the number of breaks needed
+            num_breaks = int(
+                (
+                    datetime.combine(
+                        datetime.today(),
+                        datetime.strptime("17:30:00", "%H:%M:%S").time(),
+                    )
+                    - datetime.combine(datetime.today(), last_class_end_time)
+                ).total_seconds()
+                / 60
+                / 60
+            )
+
+            # Insert break entries
+            for j in range(num_breaks):
+                break_entry = {
+                    "day": days_of_week[i],
+                    "lecture_type": "",
+                    "subject": "",
+                    "room": "",
+                    "timing": (
+                        datetime.combine(datetime.today(), last_class_end_time)
+                        + timedelta(hours=j)
+                    ).time(),
+                    "faculty": "",
+                    "faculty_2": None,
+                }
                 data.append(break_entry)
+    days_in_timetable = {entry.day for entry in timetable_entries}
+    days_without_classes = set(days_of_week) - days_in_timetable
+    for day in days_without_classes:
+        num_breaks = int(
+            (
+                datetime.combine(
+                    datetime.today(),
+                    datetime.strptime("17:30:00", "%H:%M:%S").time(),
+                )
+                - datetime.combine(
+                    datetime.today(),
+                    datetime.strptime("08:30:00", "%H:%M:%S").time(),
+                )
+            ).total_seconds()
+            / 60
+            / 60
+        )
+        # Insert break entries
+        for j in range(num_breaks):
+            break_entry = {
+                "day": day,
+                "lecture_type": "",
+                "subject": "",
+                "room": "",
+                "timing": (
+                    datetime.combine(
+                        datetime.today(),
+                        datetime.strptime("08:30:00", "%H:%M:%S").time(),
+                    )
+                    + timedelta(hours=j)
+                ).time(),
+                "faculty": "",
+                "faculty_2": None,
+            }
+            data.append(break_entry)       
     data = sorted(data, key=lambda x: (days_of_week.index(x["day"]), x["timing"]))
     context = {
-        "timetable_entries": data,
-        "daysloop": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-        ],
-    }
-
-    # Render the template and include the JSON data
+            "timetable_entries": data,
+            "daysloop": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+            ],
+    }    
     return render(request, "time-table.html", context)
     # return JsonResponse(data, safe=False)
 

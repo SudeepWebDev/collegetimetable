@@ -152,14 +152,28 @@
 </div>
 <div class="container mt-4">
     <div class="container" id="tt-container">
-        <button type="button" class="btn btn-outline-primary mt-3 d-flex" id="download-tt-btn"><i
-                class="bi bi-box-arrow-down "></i><span class="large-screen-element"> &nbsp; Download</span>
-        </button>
+        <div class="d-flex align-items-center">
+            <button type="button" class="btn btn-outline-primary mt-3 d-flex" id="download-tt-btn"><i
+                    class="bi bi-box-arrow-down "></i><span class="large-screen-element"> &nbsp; Download</span>
+            </button>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <div class="form-check form-switch mt-3 d-flex">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                &nbsp;
+                <label class="form-check-label text-dark-gray" for="flexSwitchCheckChecked">Toggle Period</label>
+            </div>
+            <!-- <button type="button" class="btn btn-outline-primary mt-3 d-flex" id="toggle-period-tt-btn"><span
+                    class="large-screen-element">Toggle Period</span>
+            </button> -->
+        </div>
         <div class="table-responsive mt-4">
             <table class="table table-bordered text-center" id="timetable-table">
                 <caption></caption>
-                <thead>
-                    <tr>
+                <thead class="font-size14">
+                    <tr id="period-row">
                         <th class="text-uppercase" style="z-index: 30;">Period</th>
                         <th class="text-uppercase">I</th>
                         <th class="text-uppercase">II</th>
@@ -193,10 +207,12 @@
                         {% for entry in timetable_entries %}
                         {% if entry.day == dayloop|upper %}
                         <td style="height: 100px;">
-                            {% if entry.subject == 'Break' %}
+                            {% if entry.subject == 'Break'%}
                             <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}
                             </span>
+                            {% elif entry.subject == ''%}
+
                             {% else %}
                             <span
                                 class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}
@@ -225,6 +241,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
+    // Assuming you have a div with the ID 'period-row' to toggle
+    $("#flexSwitchCheckChecked").on("change", function () {
+        $("#period-row").toggle(this.checked);
+    });
+
+
     $("#selectOption").on("change", function () {
         const currentPath = window.location.pathname;
         if (currentPath == "/timetable/") {
