@@ -192,15 +192,18 @@
                         {% if timetable_entries %}
                         {% for entry in timetable_entries %}
                         {% if entry.day == dayloop|upper %}
-                        <td>
+                        <td style="height: 100px;">
                             {% if entry.subject == 'Break' %}
                             <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break</span>
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">Break
+                            </span>
                             {% else %}
                             <span
-                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}</span>
-                            <div class="margin-10px-top font-size14 border-bottom">{{ entry.lecture_type }} ||
-                                {{entry.room }}</div>
+                                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}
+                            </span>
+                            <div class="margin-10px-top font-size14 border-bottom">
+                                {{ entry.lecture_type }} || {{entry.room }}
+                            </div>
                             <div class="font-size13 text-light-gray">{{ entry.course}}</div>
                             <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
                             {% endif %}

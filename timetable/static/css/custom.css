@@ -167,7 +167,7 @@
 .table td,
 .table th {
     padding: .75rem;
-    vertical-align: top;
+    vertical-align: middle;
     border-top: 1px solid #000000;
     white-space: nowrap;    
 }
