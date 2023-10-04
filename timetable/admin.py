@@ -7,7 +7,7 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ["subject_name", "course"]
+    list_display = ["subject_name", "subject_code"]
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):

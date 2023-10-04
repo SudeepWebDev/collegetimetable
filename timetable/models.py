@@ -26,7 +26,7 @@ class Course(models.Model):
 # Subject Model
 class Subject(models.Model):
     subject_name = models.CharField(max_length=200)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    subject_code = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.subject_name

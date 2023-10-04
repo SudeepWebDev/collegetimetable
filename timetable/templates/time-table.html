@@ -165,9 +165,6 @@
                 &nbsp;
                 <label class="form-check-label text-dark-gray" for="flexSwitchCheckChecked">Toggle Period</label>
             </div>
-            <!-- <button type="button" class="btn btn-outline-primary mt-3 d-flex" id="toggle-period-tt-btn"><span
-                    class="large-screen-element">Toggle Period</span>
-            </button> -->
         </div>
         <div class="table-responsive mt-4">
             <table class="table table-bordered text-center" id="timetable-table">
@@ -220,8 +217,8 @@
                             <div class="margin-10px-top font-size14 border-bottom">
                                 {{ entry.lecture_type }} || {{entry.room }}
                             </div>
-                            <div class="font-size13 text-light-gray">{{ entry.course}}</div>
-                            <div class="font-size13 text-light-gray">{{ entry.faculty }}</div>
+                            <div class="font-size13 ">{{ entry.course}}</div>
+                            <div class="font-size13 ">{{ entry.faculty }}</div>
                             {% endif %}
                         </td>
                         {% endif %}
