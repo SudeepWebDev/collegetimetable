@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 from .models import Course, Subject, Room, Timing, Faculty, Lecture, Semester, Timetable, TimetableEntry
 
@@ -29,9 +30,20 @@ class LectureAdmin(admin.ModelAdmin):
 class SemesterAdmin(admin.ModelAdmin):
     list_display = ["semester_name", "is_current_sem"]
 
+class TimetableEntryForm(forms.ModelForm):
+    class Meta:
+        model = TimetableEntry
+        fields = '__all__'
+
 class TimetableEntryInline(admin.TabularInline):
     model = TimetableEntry
-    extra = 1  
+    form = TimetableEntryForm
+    extra = 1
+
+    def get_formset(self, request, obj=None, **kwargs):
+        formset = super().get_formset(request, obj, **kwargs)
+        formset.form.base_fields['course'].initial = obj.course if obj else None
+        return formset
 
 @admin.register(Timetable)
 class TimetableAdmin(admin.ModelAdmin):
@@ -43,6 +55,16 @@ class TimetableAdmin(admin.ModelAdmin):
     ]
     inlines = [TimetableEntryInline]
 
+    def replicate_entries(self, request, queryset):
+        # Replicate the selected Timetable entries
+        for timetable in queryset:
+            timetable.replicate_entries()  # Replace this with the actual method to replicate entries
+
+    replicate_entries.short_description = "Replicate selected Timetable entries"
+
+    actions = [replicate_entries]
+
+
 @admin.register(TimetableEntry)
 class TimetableEntryAdmin(admin.ModelAdmin):
     list_display = [
@@ -53,6 +75,7 @@ class TimetableEntryAdmin(admin.ModelAdmin):
         "timing",
         "faculty",
         "faculty_2",
+        
     ]
     # Add unique constraint to ensure no duplicate entries
     unique_together = [
