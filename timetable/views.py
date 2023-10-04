@@ -9,6 +9,7 @@ from .forms import SemesterSelectionForm
 from django.shortcuts import get_object_or_404, render
 from .models import Room, Course, Semester, Faculty
 
+
 def timetablehome(request):
     form = SemesterSelectionForm(request.POST or None)
 
@@ -25,6 +26,8 @@ def timetablehome(request):
         "time-table.html",
         {"form": form, "timetable_entries1": timetable_entries1},
     )
+
+
 # Common for both faculty, course and room --> sorting and adding breaks
 def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bool):
     days_of_week = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
@@ -53,7 +56,7 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
         )
 
     data = sorted(data, key=lambda x: (days_of_week.index(x["day"]), x["timing"]))
-    # Iterate through entries to add breaks
+    # Adding breaks between two classes
     for i in range(len(data) - 1):
         current_timing = data[i]["timing"]
         next_timing = data[i + 1]["timing"]
@@ -64,7 +67,7 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
         ).total_seconds() / 3600
 
         if time_diff_hour > 1:
-            num_breaks = int(time_diff_hour )
+            num_breaks = int(time_diff_hour)
 
             for j in range(1, num_breaks):
                 break_timing = (
@@ -83,8 +86,7 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                 }
 
                 data.insert(i + j, break_entry)
-
-
+    # Adding breaks before class
     for i in range(len(days_of_week)):
         day_entries = [
             entry for entry in timetable_entries if entry.day == days_of_week[i]
@@ -128,9 +130,8 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                     "faculty": "",
                     "faculty_2": None,
                 }
-                data.append(break_entry) 
-    print(data)
-    print()
+                data.append(break_entry)
+    # Adding breaks after classes
     for i in range(len(days_of_week)):
         day_entries = [
             entry for entry in timetable_entries if entry.day == days_of_week[i]
@@ -172,12 +173,11 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                     "faculty_2": None,
                 }
                 data.append(break_entry)
-    print(data)
-    print()
 
     days_in_timetable = {entry.day for entry in timetable_entries}
     days_without_classes = set(days_of_week) - days_in_timetable
-    
+    # managing days without classes
+
     for day in days_without_classes:
         num_breaks = int(
             (
@@ -210,23 +210,24 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                 "faculty": "",
                 "faculty_2": None,
             }
-            data.append(break_entry)       
-    
+            data.append(break_entry)
+
     data = sorted(data, key=lambda x: (days_of_week.index(x["day"]), x["timing"]))
     context = {
-            "timetable_entries": data,
-            "daysloop": [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-            ],
-    }    
+        "timetable_entries": data,
+        "daysloop": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+        ],
+    }
     print(context)
     # return JsonResponse(data, safe=False)
     return render(request, "time-table.html", context)
+
 
 def get_timetable_for_semester_and_course(request, semester_id, course_id):
     semester = get_object_or_404(Semester, id=semester_id)
