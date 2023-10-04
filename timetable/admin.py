@@ -55,16 +55,6 @@ class TimetableAdmin(admin.ModelAdmin):
     ]
     inlines = [TimetableEntryInline]
 
-    def replicate_entries(self, request, queryset):
-        # Replicate the selected Timetable entries
-        for timetable in queryset:
-            timetable.replicate_entries()  # Replace this with the actual method to replicate entries
-
-    replicate_entries.short_description = "Replicate selected Timetable entries"
-
-    actions = [replicate_entries]
-
-
 @admin.register(TimetableEntry)
 class TimetableEntryAdmin(admin.ModelAdmin):
     list_display = [
