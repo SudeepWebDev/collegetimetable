@@ -58,13 +58,13 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
         current_timing = data[i]["timing"]
         next_timing = data[i + 1]["timing"]
 
-        time_diff_minutes = (
+        time_diff_hour = (
             datetime.combine(datetime.today(), next_timing)
             - datetime.combine(datetime.today(), current_timing)
-        ).total_seconds() / 60 / 60
+        ).total_seconds() / 3600
 
-        if time_diff_minutes > 1:
-            num_breaks = int(time_diff_minutes / 60 )
+        if time_diff_hour > 1:
+            num_breaks = int(time_diff_hour )
 
             for j in range(1, num_breaks):
                 break_timing = (
