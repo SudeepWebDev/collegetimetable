@@ -315,9 +315,9 @@
     const retrived_tt_val = pathSegments[pathSegments.length - 3];
     if (cap.length > 0) {
         if (pathSegments[pathSegments.length - 3] == "faculty") {
-            cap.text("Faculty Name: " + decodeURIComponent(retrived_tt_val));
+            cap.text("Faculty Name: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
         } else if (pathSegments[pathSegments.length - 3] == "room") {
-            cap.text("Room Number: " + decodeURIComponent(retrived_tt_val));
+            cap.text("Room Number: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
         } else if (pathSegments[pathSegments.length - 5] == "course") {
             cap.text("Course: " + decodeURIComponent(retrived_tt_val) + " || " + "Semester: " + decodeURIComponent(pathSegments[pathSegments.length - 4]) + " || " + "Section: " + decodeURIComponent(pathSegments[pathSegments.length-2]));
 

@@ -46,8 +46,8 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                 if faculty_bool
                 else "",  # Faculty name
                 "faculty_2": entry.faculty_2.faculty_name
-                if entry.faculty_2
-                else None,  # Faculty 2 name (if available)
+                if entry.faculty_2 and  faculty_bool
+                else "",  # Faculty 2 name (if available)
                 "course": entry.course if course_bool else "",
             }
         )
@@ -92,7 +92,7 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                             + timedelta(hours=k)
                         ).time(),
                         "faculty": "",
-                        "faculty_2": None,
+                        "faculty_2": "",
                     }
                     data.append(break_entry)
 
@@ -137,7 +137,7 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                         + timedelta(hours=j)
                     ).time(),
                     "faculty": "",
-                    "faculty_2": None,
+                    "faculty_2": "",
                 }
                 data.append(break_entry)
     # Adding breaks after classes
@@ -179,7 +179,7 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                         + timedelta(hours=j)
                     ).time(),
                     "faculty": "",
-                    "faculty_2": None,
+                    "faculty_2": "",
                 }
                 data.append(break_entry)
 
@@ -217,7 +217,7 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                     + timedelta(hours=j)
                 ).time(),
                 "faculty": "",
-                "faculty_2": None,
+                "faculty_2": "",
             }
             data.append(break_entry)
 
