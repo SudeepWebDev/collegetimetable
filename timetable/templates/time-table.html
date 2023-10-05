@@ -101,6 +101,15 @@
                             {% endfor %}
                         </select>
 
+                        <label for="section" class="form-label">Select Section:</label>
+                        <select class="form-select" id="section" name="{{ form.section.name }}"
+                            aria-label="Select section">
+                            <option selected disabled>Select section</option>
+                            {% for section in form.section.field.queryset %}
+                            <option value="{{ section.section_type}}">{{ section.section_type }}</option>
+                            {% endfor %}
+                        </select>
+
                         <label for="semester" class="form-label">Select Semester:</label>
                         <select class="form-select" id="semester" name="{{ form.semester.name }}"
                             aria-label="Select Semester">
@@ -219,6 +228,7 @@
                             </div>
                             <div class="font-size13 ">{{ entry.course}}</div>
                             <div class="font-size13 ">{{ entry.faculty }}</div>
+                            <div class="font-size13 ">{{ entry.faculty_2 }}</div>
                             {% endif %}
                         </td>
                         {% endif %}
@@ -274,13 +284,14 @@
         const course = $("#course").val();
         const faculty = $("#faculty").val();
         const room = $("#room").val();
+        const section = $("#section").val();
 
         if ($("#facultyGroup").is(":visible") && faculty !== "") {
             window.location.href = "/timetable/faculty/" + faculty + "/";
         } else if ($("#roomGroup").is(":visible") && room !== "") {
             window.location.href = "/timetable/room/" + room + "/";
         } else {
-            window.location.href = "/timetable/course/" + semester + "/" + course + "/";
+            window.location.href = "/timetable/course/" + semester + "/" + course + "/" + section + "/";
         }
     });
     const currentPath = window.location.pathname;
@@ -297,16 +308,19 @@
             window.location.href = "/timetable/";
         })
     }
+
     const cap = $("caption");
     const pathSegments = currentPath.split('/');
-    const retrived_tt_val = pathSegments[pathSegments.length - 2];
+    console.log(pathSegments);
+    const retrived_tt_val = pathSegments[pathSegments.length - 3];
     if (cap.length > 0) {
         if (pathSegments[pathSegments.length - 3] == "faculty") {
             cap.text("Faculty Name: " + decodeURIComponent(retrived_tt_val));
         } else if (pathSegments[pathSegments.length - 3] == "room") {
             cap.text("Room Number: " + decodeURIComponent(retrived_tt_val));
-        } else if (pathSegments[pathSegments.length - 4] == "course") {
-            cap.text("Course: " + decodeURIComponent(retrived_tt_val) + " || " + "Semester: " + decodeURIComponent(pathSegments[pathSegments.length - 3]));
+        } else if (pathSegments[pathSegments.length - 5] == "course") {
+            cap.text("Course: " + decodeURIComponent(retrived_tt_val) + " || " + "Semester: " + decodeURIComponent(pathSegments[pathSegments.length - 4]) + " || " + "Section: " + decodeURIComponent(pathSegments[pathSegments.length-2]));
+
         }
     }
     const printBtn = document.getElementById('download-tt-btn');

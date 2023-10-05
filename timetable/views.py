@@ -1,13 +1,10 @@
 from datetime import datetime, timedelta
-from itertools import groupby
 from django.http import HttpResponse
-from django.template import loader
-from django.http import JsonResponse
 from .models import TimetableEntry
 from .forms import SemesterSelectionForm
 
 from django.shortcuts import get_object_or_404, render
-from .models import Room, Course, Semester, Faculty
+from .models import Room, Course, Semester, Faculty, Section
 
 
 def timetablehome(request):
@@ -240,11 +237,12 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
     return render(request, "time-table.html", context)
 
 
-def get_timetable_for_semester_and_course(request, semester_id, course_id):
+def get_timetable_for_semester_and_course(request, semester_id, course_id, section_id):
     semester = get_object_or_404(Semester, id=semester_id)
 
     try:
         course = get_object_or_404(Course, course_name=course_id)
+        section = get_object_or_404(Section, section_type = section_id)
     except Course.DoesNotExist:
         return HttpResponse(f"Course with ID {course_id} does not exist.")
 

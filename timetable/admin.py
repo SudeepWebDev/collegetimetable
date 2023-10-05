@@ -1,10 +1,14 @@
 from django import forms
 from django.contrib import admin
-from .models import Course, Subject, Room, Timing, Faculty, Lecture, Semester, Timetable, TimetableEntry
+from .models import Course, Section, Subject, Room, Timing, Faculty, Lecture, Semester, Timetable, TimetableEntry
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = ["course_name", "course_code"]
+
+@admin.register(Section)
+class SectionAdmin(admin.ModelAdmin):
+    list_display = ["section_type"]
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
@@ -49,11 +53,13 @@ class TimetableEntryInline(admin.TabularInline):
 class TimetableAdmin(admin.ModelAdmin):
     list_display = [
         "course",
+        "section",
         "course_code",
         "semester",
         "is_current_sem",
     ]
     inlines = [TimetableEntryInline]
+
 
 @admin.register(TimetableEntry)
 class TimetableEntryAdmin(admin.ModelAdmin):

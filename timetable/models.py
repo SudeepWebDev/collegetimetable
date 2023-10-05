@@ -22,7 +22,13 @@ class Course(models.Model):
     def get_course_code(self):
         return self.course_code
 
+# Section Model
+class Section(models.Model):
+    section_type = models.CharField(max_length=200, unique=True, null=True)
 
+    def __str__(self):
+        return self.section_type
+    
 # Subject Model
 class Subject(models.Model):
     subject_name = models.CharField(max_length=200)
@@ -86,6 +92,7 @@ class Semester(models.Model):
 # Timetable Model
 class Timetable(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, null=True)
     course_code = models.CharField(
         max_length=10, blank=True
     )  # Define course_code as CharField
@@ -96,7 +103,7 @@ class Timetable(models.Model):
     )
 
     def __str__(self):
-        return f"{self.course.course_name} - {self.semester.semester_name} ({self.course.get_course_code()})"
+        return f"{self.course.course_name} - {self.section.section_type} - {self.semester.semester_name} ({self.course.get_course_code()})"
 
 
 class TimetableEntry(models.Model):
