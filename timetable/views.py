@@ -253,16 +253,29 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id, secti
     return get_timetable(request, timetable_entries, True, False, True)
 
 
+# def get_timetable_for_faculty(request, faculty_name):
+#     try:
+#         faculty = get_object_or_404(Faculty, faculty_name=faculty_name)
+#     except Faculty.DoesNotExist:
+#         return HttpResponse(f"Faculty with name {faculty_name} does not exist.")
+
+#     timetable_entries = TimetableEntry.objects.filter(faculty=faculty, faculty_2 = faculty)
+
+#     # room_bool, course_bool, faculty_bool
+#     return get_timetable(request, timetable_entries, True, True, False)
+from django.db.models import Q
+
 def get_timetable_for_faculty(request, faculty_name):
     try:
         faculty = get_object_or_404(Faculty, faculty_name=faculty_name)
     except Faculty.DoesNotExist:
         return HttpResponse(f"Faculty with name {faculty_name} does not exist.")
 
-    timetable_entries = TimetableEntry.objects.filter(faculty=faculty)
-
+    timetable_entries = TimetableEntry.objects.filter(Q(faculty=faculty) | Q(faculty_2=faculty))
+    
     # room_bool, course_bool, faculty_bool
     return get_timetable(request, timetable_entries, True, True, False)
+
 
 
 def get_timetable_for_room(request, room_number):
