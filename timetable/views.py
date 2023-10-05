@@ -1,3 +1,4 @@
+from django.db.models import Q
 from datetime import datetime, timedelta
 from django.http import HttpResponse
 from .models import TimetableEntry
@@ -47,7 +48,13 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                 else "",  # Faculty name
                 "faculty_2": entry.faculty_2.faculty_name
                 if entry.faculty_2 and  faculty_bool
-                else "",  # Faculty 2 name (if available)
+                else "", 
+                "faculty_3": entry.faculty_3.faculty_name
+                if entry.faculty_3 and  faculty_bool
+                else "", 
+                "faculty_4": entry.faculty_4.faculty_name
+                if entry.faculty_4 and  faculty_bool
+                else "", 
                 "course": entry.course if course_bool else "",
             }
         )
@@ -93,6 +100,8 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                         ).time(),
                         "faculty": "",
                         "faculty_2": "",
+                        "faculty_3": "",
+                        "faculty_4": "",
                     }
                     data.append(break_entry)
 
@@ -138,6 +147,8 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                     ).time(),
                     "faculty": "",
                     "faculty_2": "",
+                    "faculty_3": "",
+                    "faculty_4": "",
                 }
                 data.append(break_entry)
     # Adding breaks after classes
@@ -180,6 +191,8 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                     ).time(),
                     "faculty": "",
                     "faculty_2": "",
+                    "faculty_3": "",
+                    "faculty_4": "",
                 }
                 data.append(break_entry)
 
@@ -218,6 +231,8 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                 ).time(),
                 "faculty": "",
                 "faculty_2": "",
+                "faculty_3": "",
+                "faculty_4": "",
             }
             data.append(break_entry)
 
@@ -252,26 +267,13 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id, secti
     # room_bool, course_bool, faculty_bool
     return get_timetable(request, timetable_entries, True, False, True)
 
-
-# def get_timetable_for_faculty(request, faculty_name):
-#     try:
-#         faculty = get_object_or_404(Faculty, faculty_name=faculty_name)
-#     except Faculty.DoesNotExist:
-#         return HttpResponse(f"Faculty with name {faculty_name} does not exist.")
-
-#     timetable_entries = TimetableEntry.objects.filter(faculty=faculty, faculty_2 = faculty)
-
-#     # room_bool, course_bool, faculty_bool
-#     return get_timetable(request, timetable_entries, True, True, False)
-from django.db.models import Q
-
 def get_timetable_for_faculty(request, faculty_name):
     try:
         faculty = get_object_or_404(Faculty, faculty_name=faculty_name)
     except Faculty.DoesNotExist:
         return HttpResponse(f"Faculty with name {faculty_name} does not exist.")
 
-    timetable_entries = TimetableEntry.objects.filter(Q(faculty=faculty) | Q(faculty_2=faculty))
+    timetable_entries = TimetableEntry.objects.filter(Q(faculty=faculty) | Q(faculty_2=faculty) | Q(faculty_3=faculty) | Q(faculty_4=faculty))
     
     # room_bool, course_bool, faculty_bool
     return get_timetable(request, timetable_entries, True, True, False)

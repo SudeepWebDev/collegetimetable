@@ -130,6 +130,22 @@ class TimetableEntry(models.Model):
         related_name="faculty_2",
         verbose_name="Faculty 2 (for lab)",
     )
+    faculty_3 = models.ForeignKey(
+        Faculty,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="faculty_3",
+        verbose_name="Faculty 3 (for lab)",
+    )
+    faculty_4 = models.ForeignKey(
+        Faculty,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="faculty_4",
+        verbose_name="Faculty 4 (for lab)",
+    )
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
@@ -152,4 +168,6 @@ class Meta:
         "timing",
         "faculty",
         "faculty_2",
+        "faculty_3",
+        "faculty_4",
     ]

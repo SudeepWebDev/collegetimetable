@@ -71,6 +71,8 @@ class TimetableEntryAdmin(admin.ModelAdmin):
         "timing",
         "faculty",
         "faculty_2",
+        "faculty_3",
+        "faculty_4",
         
     ]
     # Add unique constraint to ensure no duplicate entries
@@ -82,4 +84,6 @@ class TimetableEntryAdmin(admin.ModelAdmin):
         'timing',
         'faculty',
         'faculty_2',
+        'faculty_3',
+        'faculty_4',
     ]

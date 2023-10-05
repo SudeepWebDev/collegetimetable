@@ -229,6 +229,8 @@
                             <div class="font-size13 ">{{ entry.course}}</div>
                             <div class="font-size13 ">{{ entry.faculty }}</div>
                             <div class="font-size13 ">{{ entry.faculty_2 }}</div>
+                            <div class="font-size13 ">{{ entry.faculty_3 }}</div>
+                            <div class="font-size13 ">{{ entry.faculty_4 }}</div>
                             {% endif %}
                         </td>
                         {% endif %}
@@ -319,7 +321,7 @@
         } else if (pathSegments[pathSegments.length - 3] == "room") {
             cap.text("Room Number: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
         } else if (pathSegments[pathSegments.length - 5] == "course") {
-            cap.text("Course: " + decodeURIComponent(retrived_tt_val) + " || " + "Semester: " + decodeURIComponent(pathSegments[pathSegments.length - 4]) + " || " + "Section: " + decodeURIComponent(pathSegments[pathSegments.length-2]));
+            cap.text("Course: " + decodeURIComponent(retrived_tt_val) + " || " + "Semester: " + decodeURIComponent(pathSegments[pathSegments.length - 4]) + " || " + "Section: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
 
         }
     }
