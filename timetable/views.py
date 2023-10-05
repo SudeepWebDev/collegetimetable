@@ -56,37 +56,49 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
         )
 
     data = sorted(data, key=lambda x: (days_of_week.index(x["day"]), x["timing"]))
-    # Adding breaks between two classes
-    for i in range(len(data) - 1):
-        current_timing = data[i]["timing"]
-        next_timing = data[i + 1]["timing"]
 
-        time_diff_hour = (
-            datetime.combine(datetime.today(), next_timing)
-            - datetime.combine(datetime.today(), current_timing)
-        ).total_seconds() / 3600
+    # Iterate through days of the week
+    for i in range(len(days_of_week)):
+        day_entries = [
+            entry for entry in timetable_entries if entry.day == days_of_week[i]
+        ]
 
-        if time_diff_hour > 1:
-            num_breaks = int(time_diff_hour)
+        # Sort entries by start time
+        day_entries.sort(key=lambda x: x.timing.start_time)
 
-            for j in range(1, num_breaks):
-                break_timing = (
-                    datetime.combine(datetime.today(), current_timing)
-                    + timedelta(minutes=60 * j)
-                ).time()
+        # Iterate through classes to add breaks between consecutive classes
+        for j in range(1, len(day_entries)):
+            current_class_end_time = day_entries[j - 1].timing.end_time
+            next_class_start_time = day_entries[j].timing.start_time
 
-                break_entry = {
-                    "day": data[i]["day"],
-                    "lecture_type": "Break",
-                    "subject": "Break",
-                    "room": "",
-                    "timing": break_timing,
-                    "faculty": "",
-                    "faculty_2": None,
-                }
+            # Check if there is a gap between classes
+            if current_class_end_time < next_class_start_time:
+                # Calculate the number of breaks needed
+                num_breaks = int(
+                    (
+                        datetime.combine(datetime.today(), next_class_start_time)
+                        - datetime.combine(datetime.today(), current_class_end_time)
+                    ).total_seconds()
+                    / 60
+                    / 60
+                )
 
-                data.insert(i + j, break_entry)
-    # Adding breaks before class
+                # Insert break entries
+                for k in range(num_breaks):
+                    break_entry = {
+                        "day": days_of_week[i],
+                        "lecture_type": "Break",
+                        "subject": "Break",
+                        "room": "",
+                        "timing": (
+                            datetime.combine(datetime.today(), current_class_end_time)
+                            + timedelta(hours=k)
+                        ).time(),
+                        "faculty": "",
+                        "faculty_2": None,
+                    }
+                    data.append(break_entry)
+
     for i in range(len(days_of_week)):
         day_entries = [
             entry for entry in timetable_entries if entry.day == days_of_week[i]
@@ -224,7 +236,6 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
             "Saturday",
         ],
     }
-    print(context)
     # return JsonResponse(data, safe=False)
     return render(request, "time-table.html", context)
 
