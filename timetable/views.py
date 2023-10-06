@@ -262,7 +262,7 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id, secti
         return HttpResponse(f"Course with ID {course_id} does not exist.")
 
     timetable_entries = TimetableEntry.objects.filter(
-        timetable__semester=semester, timetable__course=course
+        timetable__semester=semester, timetable__course=course, timetable__section = section
     )
     # room_bool, course_bool, faculty_bool
     return get_timetable(request, timetable_entries, True, False, True)
