@@ -1,6 +1,7 @@
 
 
 ## Clone this repository
+**Run the following commands**
 ### 1. pip install django-bootstrap-v5
 ### 2. pip install whitenoise
 ### 3. py manage.py makemigrations
