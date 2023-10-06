@@ -39,20 +39,20 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
         data.append(
             {
                 "day": entry.day,  # Day of the week
-                "lecture_type": entry.lecture_type.Lecture_type,  # Lecture type (lab or theory)
+                "lecture_type": entry.lecture_type.Lecture_type_ff,  # Lecture type (lab or theory)
                 "subject": entry.subject.subject_name,  # Subject name
                 "room": entry.room.room_number if room_bool else "",  # Room number
                 "timing": entry.timing.start_time,  # Timing/start time
-                "faculty": entry.faculty.faculty_name
+                "faculty": entry.faculty
                 if faculty_bool
                 else "",  # Faculty name
-                "faculty_2": entry.faculty_2.faculty_name
+                "faculty_2": entry.faculty_2
                 if entry.faculty_2 and  faculty_bool
                 else "", 
-                "faculty_3": entry.faculty_3.faculty_name
+                "faculty_3": entry.faculty_3
                 if entry.faculty_3 and  faculty_bool
                 else "", 
-                "faculty_4": entry.faculty_4.faculty_name
+                "faculty_4": entry.faculty_4
                 if entry.faculty_4 and  faculty_bool
                 else "", 
                 "course": entry.course if course_bool else "",
@@ -253,7 +253,7 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
 
 
 def get_timetable_for_semester_and_course(request, semester_id, course_id, section_id):
-    semester = get_object_or_404(Semester, id=semester_id)
+    semester = get_object_or_404(Semester, semester_name=semester_id)
 
     try:
         course = get_object_or_404(Course, course_name=course_id)
@@ -267,9 +267,9 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id, secti
     # room_bool, course_bool, faculty_bool
     return get_timetable(request, timetable_entries, True, False, True)
 
-def get_timetable_for_faculty(request, faculty_name):
+def get_timetable_for_faculty(request,faculty_code, faculty_name):
     try:
-        faculty = get_object_or_404(Faculty, faculty_name=faculty_name)
+        faculty = get_object_or_404(Faculty, faculty_code=faculty_code)
     except Faculty.DoesNotExist:
         return HttpResponse(f"Faculty with name {faculty_name} does not exist.")
 

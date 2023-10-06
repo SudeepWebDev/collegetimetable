@@ -116,7 +116,7 @@
                             <option selected disabled>Select semester</option>
                             {% for semester in form.semester.field.queryset %}
                             {% if semester.is_current_sem %}
-                            <option value="{{ semester.id }}">{{ semester.semester_name }}</option>
+                            <option value="{{ semester.semester_name }}">{{ semester.semester_name }}</option>
                             {% endif %}
                             {% endfor %}
                         </select>
@@ -128,7 +128,7 @@
                             aria-label="Select Faculty">
                             <option selected disabled>Select Faculty</option>
                             {% for faculty in form.faculty.field.queryset %}
-                            <option value="{{ faculty.faculty_name }}">{{ faculty.faculty_name }}</option>
+                            <option value="{{ faculty.faculty_code}}/{{faculty}}">{{ faculty}} {{ faculty.faculty_code }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -316,7 +316,7 @@
     console.log(pathSegments);
     const retrived_tt_val = pathSegments[pathSegments.length - 3];
     if (cap.length > 0) {
-        if (pathSegments[pathSegments.length - 3] == "faculty") {
+        if (pathSegments[pathSegments.length - 4] == "faculty") {
             cap.text("Faculty Name: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
         } else if (pathSegments[pathSegments.length - 3] == "room") {
             cap.text("Room Number: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));

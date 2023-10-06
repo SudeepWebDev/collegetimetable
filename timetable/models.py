@@ -57,12 +57,12 @@ class Timing(models.Model):
 
 # Faculty Model
 class Faculty(models.Model):
+    salutation = models.CharField(max_length=200, null=True, blank=True)
     faculty_name = models.CharField(max_length=200)
     faculty_code = models.CharField(max_length=100, default="CODE")
 
     def __str__(self):
-        return self.faculty_name
-
+        return f"{self.salutation} {self.faculty_name}"
 
 # Lecture Model
 class Lecture(models.Model):

@@ -24,7 +24,7 @@ class TimingAdmin(admin.ModelAdmin):
 
 @admin.register(Faculty)
 class FacultyAdmin(admin.ModelAdmin):
-    list_display = ["faculty_name", "faculty_code"]
+    list_display = ["salutation","faculty_name", "faculty_code"]
 
 @admin.register(Lecture)
 class LectureAdmin(admin.ModelAdmin):
