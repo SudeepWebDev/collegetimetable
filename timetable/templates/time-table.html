@@ -53,6 +53,16 @@
 
     }
 
+    .hover-tag:hover {
+        background-color: white;
+        color: rgb(10, 20, 110);
+    }
+
+    .click-tag {
+        background-color: white;
+        color: rgb(10, 20, 110);
+    }
+
     @media (max-width: 768px) {
 
         .custom-logo {
@@ -80,13 +90,14 @@
     <div class="study-text">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <label for="selectOption" class="form-label">Show timetable for:</label>
-                <select class="form-select" id="selectOption" aria-label="Select a category">
-                    <option selected disabled>Select a category</option>
-                    <option value="faculty">Faculty Wise</option>
-                    <option value="course">Course Wise</option>
-                    <option value="room">Room Wise</option>
-                </select>
+                <div class="d-flex justify-content-center" id="selectOption">
+                    <span class="padding-15px-lr  padding-5px-tb border hover-tag flex-grow-1" id="faculty-opt">Faculty</span>
+                    <span class="padding-15px-lr padding-5px-tb border hover-tag flex-grow-1" id="course-opt">Course</span>
+                    <span class="padding-15px-lr padding-5px-tb border hover-tag flex-grow-1" id="room-opt">Room</span>
+                    <!-- <span class="padding-15px-lr padding-5px-tb border hover-tag" id="ge-opt">GE</span>
+                    <span class="padding-15px-lr padding-5px-tb border hover-tag" id="vac-opt">VAC</span>
+                    <span class="padding-15px-lr padding-5px-tb border hover-tag" id="sec-opt">SEC</span> -->
+                </div>
 
                 <form method="post">
                     {% csrf_token %}
@@ -128,7 +139,9 @@
                             aria-label="Select Faculty">
                             <option selected disabled>Select Faculty</option>
                             {% for faculty in form.faculty.field.queryset %}
-                            <option value="{{ faculty.faculty_code}}/{{faculty}}">{{ faculty}} {{ faculty.faculty_code }}</option>
+                            <option value="{{ faculty.faculty_code}}/{{faculty}}">{{ faculty}}
+                                {{ faculty.faculty_code}}
+                            </option>
                             {% endfor %}
                         </select>
                     </div>
@@ -144,7 +157,8 @@
                     </div>
 
 
-                    <button type="submit" class="btn btn-outline-primary mt-3 " id="submit-tt-btn">Submit</button>
+                    <button type="submit" class="btn btn-outline-primary mt-3 text-white"
+                        id="submit-tt-btn">Submit</button>
                     <button type="button" class="btn btn-primary mt-3" style="display: none;" id="reselect-tt-btn">
                         <i class="bi bi-arrow-clockwise"></i>
                     </button>
@@ -157,6 +171,7 @@
         </div>
 
     </div>
+</div>
 
 </div>
 <div class="container mt-4">
@@ -215,7 +230,7 @@
                         <td style="height: 100px;">
                             {% if entry.subject == 'Break'%}
                             <span
-                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}
+                                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13 sub-cell">{{entry.subject}}
                             </span>
                             {% elif entry.subject == ''%}
 
@@ -223,7 +238,7 @@
                             <span
                                 class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size14 xs-font-size13">{{entry.subject}}
                             </span>
-                            <div class="margin-10px-top font-size14 border-bottom">
+                            <div class="margin-10px-top font-size14 border-bottom lectroom-cell">
                                 {{ entry.lecture_type }} || {{entry.room }}
                             </div>
                             <div class="font-size13 ">{{ entry.course}}</div>
@@ -243,6 +258,7 @@
         </div>
     </div>
 </div>
+<!-- <button type="button" class="btn" id="fetch">Fetch</button> -->
 {% endblock %}
 
 {% block script %}
@@ -250,34 +266,93 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    // Assuming you have a div with the ID 'period-row' to toggle
+// var fetchbtn = document.getElementById('fetch');
+// fetchbtn.addEventListener("click", function () {
+//     var tableBody = document.querySelector('tbody');
+//     var rows = tableBody.querySelectorAll('tr');
+
+//     rows.forEach(function (row) {
+//         var cells = row.querySelectorAll('td');
+
+//         for (var i = 0; i < cells.length - 1; i++) {
+//             var currentCell = cells[i];
+//             var nextCell = cells[i + 1];
+
+//             var currentLectroomContent = currentCell.querySelector('.lectroom-cell');
+//             var nextLectroomContent = nextCell.querySelector('.lectroom-cell');
+//             var currentSubContent = currentCell.querySelector('.sub-cell');
+//             var nextSubContent = nextCell.querySelector('.sub-cell');
+
+//             // Skip if either currentLectroomContent or nextLectroomContent is null
+//             if (!currentLectroomContent || !nextLectroomContent ) {
+//                 continue;
+//             }
+
+//             console.log("Current Lectroom Content: ", currentLectroomContent.textContent);
+//             console.log("Next Lectroom Content: ", nextLectroomContent.textContent);
+//             console.log("Current Sub Content: ", currentSubContent.textContent);
+//             console.log("Next Sub Content: ", nextSubContent.textContent);
+
+//             if (
+//                 currentLectroomContent.textContent === nextLectroomContent.textContent &&
+//                 currentSubContent.textContent === nextSubContent.textContent
+//             ) {
+//                 currentCell.colSpan = 2;
+//                 nextCell.style.display = 'none';
+//                 i++;
+//             }
+//         }
+//     });
+// });
+
+// Assuming you have a div with the ID 'period-row' to toggle
     $("#flexSwitchCheckChecked").on("change", function () {
         $("#period-row").toggle(this.checked);
     });
+    const currentPath1 = window.location.pathname;
+    $("#semesterGroup, #courseGroup, #facultyGroup, #roomGroup").hide();
+    $("#courseGroup").show();
+    $("#course-opt").addClass('click-tag')
+    if (currentPath1 == "/timetable/") {
+        $("#semester").on("change", function () {
+            $("#submit-tt-btn").prop("disabled", false);
+        })
+        $("#faculty").on("change", function () {
+            $("#submit-tt-btn").prop("disabled", false);
+        })
+        $("#room").on("change", function () {
+            $("#submit-tt-btn").prop("disabled", false);
+        })
+    } else {
+        $("#courseGroup").hide();
+    }
 
+    $("#course-opt").on("click", function () {
+        $("#courseGroup").show();
+        $("#facultyGroup").hide();
+        $("#roomGroup").hide();
+        $("#course-opt").addClass('click-tag');
+        $("#faculty-opt").removeClass('click-tag');
+        $("#room-opt").removeClass('click-tag');
 
-    $("#selectOption").on("change", function () {
-        const currentPath = window.location.pathname;
-        if (currentPath == "/timetable/") {
-            $("#semester").on("change", function () {
-                $("#submit-tt-btn").prop("disabled", false);
-            })
-            $("#faculty").on("change", function () {
-                $("#submit-tt-btn").prop("disabled", false);
-            })
-            $("#room").on("change", function () {
-                $("#submit-tt-btn").prop("disabled", false);
-            })
-        }
-        const selectedOption = $(this).val();
-        $("#semesterGroup, #courseGroup, #facultyGroup, #roomGroup").hide();
-        if (selectedOption === "faculty") {
-            $("#facultyGroup").show();
-        } else if (selectedOption === "course") {
-            $("#courseGroup").show();
-        } else if (selectedOption === "room") {
-            $("#roomGroup").show();
-        }
+    });
+    $("#faculty-opt").on("click", function () {
+        $("#facultyGroup").show();
+        $("#roomGroup").hide();
+        $("#courseGroup").hide();
+        $("#faculty-opt").addClass('click-tag');
+        $("#room-opt").removeClass('click-tag');
+        $("#course-opt").removeClass('click-tag');
+
+    });
+    $("#room-opt").on("click", function () {
+        $("#roomGroup").show();
+        $("#courseGroup").hide();
+        $("#facultyGroup").hide();
+        $("#room-opt").addClass('click-tag');
+        $("#course-opt").removeClass('click-tag');
+        $("#faculty-opt").removeClass('click-tag');
+
     });
     $("#submit-tt-btn").prop("disabled", true);
     $("#submit-tt-btn").on("click", function (e) {
@@ -301,9 +376,9 @@
         $("#tt-container").hide();
     }
     if (currentPath.startsWith("/timetable/") && currentPath !== "/timetable/") {
-        $("#submit-tt-btn").prop("disabled", true);
         $("#reselect-tt-btn").show();
-        $("#selectOption").prop("disabled", true);
+        $("#selectOption").attr('style', 'display:none !important');
+        $("#submit-tt-btn").hide();
     }
     if ($("#reselect-tt-btn")) {
         $("#reselect-tt-btn").on("click", function () {
