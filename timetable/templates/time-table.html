@@ -54,13 +54,17 @@
     }
 
     .hover-tag:hover {
-        background-color: white;
+        background-color: rgb(245, 245, 245);
         color: rgb(10, 20, 110);
     }
 
     .click-tag {
         background-color: white;
         color: rgb(10, 20, 110);
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
     }
 
     @media (max-width: 768px) {
@@ -90,10 +94,13 @@
     <div class="study-text">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="d-flex justify-content-center" id="selectOption">
-                    <span class="padding-15px-lr  padding-5px-tb border hover-tag flex-grow-1" id="faculty-opt">Faculty</span>
-                    <span class="padding-15px-lr padding-5px-tb border hover-tag flex-grow-1" id="course-opt">Course</span>
-                    <span class="padding-15px-lr padding-5px-tb border hover-tag flex-grow-1" id="room-opt">Room</span>
+                <div class="d-flex justify-content-center cursor-pointer" id="selectOption">
+                    <span class="padding-15px-lr  padding-5px-tb border hover-tag flex-grow-1 "
+                        style="font-weight: 600;" id="faculty-opt">Faculty</span>
+                    <span class="padding-15px-lr padding-5px-tb border hover-tag flex-grow-1 " style="font-weight: 600;"
+                        id="course-opt">Course</span>
+                    <span class="padding-15px-lr padding-5px-tb border hover-tag flex-grow-1 " style="font-weight: 600;"
+                        id="room-opt">Room</span>
                     <!-- <span class="padding-15px-lr padding-5px-tb border hover-tag" id="ge-opt">GE</span>
                     <span class="padding-15px-lr padding-5px-tb border hover-tag" id="vac-opt">VAC</span>
                     <span class="padding-15px-lr padding-5px-tb border hover-tag" id="sec-opt">SEC</span> -->
@@ -117,7 +124,11 @@
                             aria-label="Select section">
                             <option selected disabled>Select section</option>
                             {% for section in form.section.field.queryset %}
+                            {% if section.section_type == 'NILL' %}
+                            <option value="{{ section.section_type}}" selected>{{ section.section_type }}</option>
+                            {% else %}
                             <option value="{{ section.section_type}}">{{ section.section_type }}</option>
+                            {% endif %}
                             {% endfor %}
                         </select>
 
@@ -258,54 +269,17 @@
         </div>
     </div>
 </div>
-<!-- <button type="button" class="btn" id="fetch">Fetch</button> -->
 {% endblock %}
 
 {% block script %}
 <script src="{% static 'js/base.js' %}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Include html2pdf from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
-// var fetchbtn = document.getElementById('fetch');
-// fetchbtn.addEventListener("click", function () {
-//     var tableBody = document.querySelector('tbody');
-//     var rows = tableBody.querySelectorAll('tr');
 
-//     rows.forEach(function (row) {
-//         var cells = row.querySelectorAll('td');
-
-//         for (var i = 0; i < cells.length - 1; i++) {
-//             var currentCell = cells[i];
-//             var nextCell = cells[i + 1];
-
-//             var currentLectroomContent = currentCell.querySelector('.lectroom-cell');
-//             var nextLectroomContent = nextCell.querySelector('.lectroom-cell');
-//             var currentSubContent = currentCell.querySelector('.sub-cell');
-//             var nextSubContent = nextCell.querySelector('.sub-cell');
-
-//             // Skip if either currentLectroomContent or nextLectroomContent is null
-//             if (!currentLectroomContent || !nextLectroomContent ) {
-//                 continue;
-//             }
-
-//             console.log("Current Lectroom Content: ", currentLectroomContent.textContent);
-//             console.log("Next Lectroom Content: ", nextLectroomContent.textContent);
-//             console.log("Current Sub Content: ", currentSubContent.textContent);
-//             console.log("Next Sub Content: ", nextSubContent.textContent);
-
-//             if (
-//                 currentLectroomContent.textContent === nextLectroomContent.textContent &&
-//                 currentSubContent.textContent === nextSubContent.textContent
-//             ) {
-//                 currentCell.colSpan = 2;
-//                 nextCell.style.display = 'none';
-//                 i++;
-//             }
-//         }
-//     });
-// });
-
-// Assuming you have a div with the ID 'period-row' to toggle
+    // Assuming you have a div with the ID 'period-row' to toggle
     $("#flexSwitchCheckChecked").on("change", function () {
         $("#period-row").toggle(this.checked);
     });
@@ -334,7 +308,7 @@
         $("#course-opt").addClass('click-tag');
         $("#faculty-opt").removeClass('click-tag');
         $("#room-opt").removeClass('click-tag');
-
+        $("#submit-tt-btn").prop("disabled", true);
     });
     $("#faculty-opt").on("click", function () {
         $("#facultyGroup").show();
@@ -343,7 +317,7 @@
         $("#faculty-opt").addClass('click-tag');
         $("#room-opt").removeClass('click-tag');
         $("#course-opt").removeClass('click-tag');
-
+        $("#submit-tt-btn").prop("disabled", true);
     });
     $("#room-opt").on("click", function () {
         $("#roomGroup").show();
@@ -352,7 +326,7 @@
         $("#room-opt").addClass('click-tag');
         $("#course-opt").removeClass('click-tag');
         $("#faculty-opt").removeClass('click-tag');
-
+        $("#submit-tt-btn").prop("disabled", true);
     });
     $("#submit-tt-btn").prop("disabled", true);
     $("#submit-tt-btn").on("click", function (e) {
@@ -416,8 +390,7 @@
                 downloadLink.click();
                 document.body.removeChild(downloadLink);
             });
-        }
-        )
+        })
     }
 
 </script>
