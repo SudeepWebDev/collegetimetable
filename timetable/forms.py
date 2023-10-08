@@ -20,13 +20,13 @@ class SemesterSelectionForm(forms.Form):
 
         # Filter the queryset based on subject names containing "GE"
         self.fields['subject_ge'].queryset = Subject.objects.filter(
-            subject_name__icontains='GE')
+            subject_name__icontains='- GE')
 
         # Filter the queryset based on subject names containing "SEC"
         self.fields['subject_sec'].queryset = Subject.objects.filter(
-            subject_name__icontains='SEC')
+            subject_name__icontains='- SEC')
 
         # Filter the queryset based on subject names containing "VAC"
         self.fields['subject_vac'].queryset = Subject.objects.filter(
-            subject_name__icontains='VAC')
+            subject_name__icontains='- VAC')
 
