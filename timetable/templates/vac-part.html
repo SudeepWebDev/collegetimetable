@@ -7,9 +7,19 @@
         <option value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
         {% endfor %}
     </select>
+    <label for="sectionvac" class="form-label">Select Section:</label>
+    <select class="form-select" id="sectionvac" name="{{ form.section.name }}" aria-label="Select section">
+        <option selected disabled>Select section</option>
+        {% for section in form.section.field.queryset %}
+        {% if section.section_type == 'NILL' %}
+        <option value="{{ section.section_type}}" selected>{{ section.section_type }}</option>
+        {% else %}
+        <option value="{{ section.section_type}}">{{ section.section_type }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
     <label for="semestervac" class="form-label">Select Semester:</label>
-    <select class="form-select" id="semestervac" name="{{ form.semester.name }}"
-        aria-label="Select Semester">
+    <select class="form-select" id="semestervac" name="{{ form.semester.name }}" aria-label="Select Semester">
         <option selected disabled>Select semester</option>
         {% for semester in form.semester.field.queryset %}
         {% if semester.is_current_sem %}

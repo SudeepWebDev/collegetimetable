@@ -75,7 +75,7 @@ $("#vac-opt").on("click", function () {
   $("#ge-opt,#sec-opt,#course-opt,#room-opt,#faculty-opt").removeClass('click-tag');
 });
 
-let faculty, room, course, semester, section, semesterge, semestersec, semestervac, paperge, papersec, papervac;
+let faculty, room, course, semester, section, sectionge, sectionsec, sectionvac, semesterge, semestersec, semestervac, paperge, papersec, papervac;
 
 function showAlert(message) {
   $("#alertMessage").text(message);
@@ -100,6 +100,9 @@ $("#submit-tt-btn").on("click", function (e) {
   faculty = $("#faculty").val();
   room = $("#room").val();
   section = $("#section").val();
+  sectionge = $("#sectionge").val();
+  sectionsec = $("#sectionsec").val();
+  sectionvac = $("#sectionvac").val();
 
   let errorMessage = "";
 
@@ -109,17 +112,17 @@ $("#submit-tt-btn").on("click", function (e) {
     errorMessage = "Please select a room.";
   } else if ($("#courseGroup").is(":visible") && (course === null || semester === null || section === null)) {
     errorMessage = "Please select semester, course, and section.";
-  } else if ($("#geGroup").is(":visible") && (paperge === null || semesterge === null)) {
-    errorMessage = "Please select semester and paper for GE.";
-  } else if ($("#secGroup").is(":visible") && (papersec === null || semestersec === null)) {
-    errorMessage = "Please select semester and paper for SEC.";
-  } else if ($("#vacGroup").is(":visible") && (papervac === null || semestervac === null)) {
-    errorMessage = "Please select semester and paper for VAC.";
+  } else if ($("#geGroup").is(":visible") && (paperge === null || semesterge === null || sectionge === null)) {
+    errorMessage = "Please select semester, section and paper for GE.";
+  } else if ($("#secGroup").is(":visible") && (papersec === null || semestersec === null || sectionsec === null)) {
+    errorMessage = "Please select semester, section and paper for SEC.";
+  } else if ($("#vacGroup").is(":visible") && (papervac === null || semestervac === null || sectionvac === null)) {
+    errorMessage = "Please select semester, section and paper for VAC.";
   }
 
   if (errorMessage !== "") {
     showAlert(errorMessage);
-    setTimeout(hideAlert, 5000); // hide the alert after 5 seconds
+    setTimeout(hideAlert, 5000);
   } else {
     redirectBasedOnSelection();
   }
@@ -133,11 +136,11 @@ function redirectBasedOnSelection() {
   } else if ($("#courseGroup").is(":visible") && course !== null && semester !== null && section !== null) {
     window.location.href = "/timetable/course/" + semester + "/" + course + "/" + section + "/";
   } else if ($("#geGroup").is(":visible") && paperge !== null && semesterge !== null) {
-    window.location.href = "/timetable/gvs/" + paperge + "/" + semesterge + "/";
+    window.location.href = "/timetable/gvs/" + paperge + "/" + sectionge + "/" + semesterge + "/";
   } else if ($("#secGroup").is(":visible") && papersec !== null && semestersec !== null) {
-    window.location.href = "/timetable/gvs/" + papersec + "/" + semestersec + "/";
+    window.location.href = "/timetable/gvs/" + papersec + "/" + sectionsec + "/" + semestersec + "/";
   } else if ($("#vacGroup").is(":visible") && papervac !== null && semestervac !== null) {
-    window.location.href = "/timetable/gvs/" + papervac + "/" + semestervac + "/";
+    window.location.href = "/timetable/gvs/" + papervac + "/" + sectionvac + "/" + semestervac + "/";
   }
 }
 

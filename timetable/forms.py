@@ -25,6 +25,7 @@ class Room_selection(forms.Form):
 
 
 class Ge_selection(forms.Form):
+    section = forms.ModelChoiceField(queryset=Section.objects.all(), empty_label=None)
     subject_ge = forms.ModelChoiceField(queryset=Subject.objects.all(), required=False)
     semester = forms.ModelChoiceField(queryset=Semester.objects.all(), empty_label=None)
 
@@ -38,6 +39,7 @@ class Ge_selection(forms.Form):
 
 
 class Sec_selection(forms.Form):
+    section = forms.ModelChoiceField(queryset=Section.objects.all(), empty_label=None)
     subject_sec = forms.ModelChoiceField(queryset=Subject.objects.all(), required=False)
     semester = forms.ModelChoiceField(queryset=Semester.objects.all(), empty_label=None)
 
@@ -51,6 +53,7 @@ class Sec_selection(forms.Form):
 
 
 class Vac_selection(forms.Form):
+    section = forms.ModelChoiceField(queryset=Section.objects.all(), empty_label=None)
     subject_vac = forms.ModelChoiceField(queryset=Subject.objects.all(), required=False)
     semester = forms.ModelChoiceField(queryset=Semester.objects.all(), empty_label=None)
 
