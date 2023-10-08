@@ -160,16 +160,28 @@ if ($("#reselect-tt-btn")) {
 }
 
 const cap = $("caption");
+const selected_val = $("#selectedvalue");
 const pathSegments = currentPath.split('/');
 const retrived_tt_val = pathSegments[pathSegments.length - 3];
+var spanElement = $("<span>").addClass("padding-15px-lr padding-5px-tb border flex-grow-1")
+  .css("font-weight", "600");
 if (cap.length > 0) {
   if (pathSegments[pathSegments.length - 4] == "faculty") {
     cap.text("Faculty Name: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
+    spanElement.text("Faculty Name: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
+    selected_val.append(spanElement);
   } else if (pathSegments[pathSegments.length - 3] == "room") {
     cap.text("Room Number: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
+    spanElement.text("Room Number: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
+    selected_val.append(spanElement);
   } else if (pathSegments[pathSegments.length - 5] == "course") {
     cap.text("Course: " + decodeURIComponent(retrived_tt_val) + " || " + "Semester: " + decodeURIComponent(pathSegments[pathSegments.length - 4]) + " || " + "Section: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
-
+    spanElement.text("Course: " + decodeURIComponent(retrived_tt_val) + " || " + "Semester: " + decodeURIComponent(pathSegments[pathSegments.length - 4]) + " || " + "Section: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
+    selected_val.append(spanElement);
+  } else if (pathSegments[pathSegments.length - 5] == "gvs") {
+    cap.text("Section: " + decodeURIComponent(retrived_tt_val) + " || " + "Paper: " + decodeURIComponent(pathSegments[pathSegments.length - 4]) + " || " + "Semester: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
+    spanElement.text("Section: " + decodeURIComponent(retrived_tt_val) + " || " + "Paper: " + decodeURIComponent(pathSegments[pathSegments.length - 4]) + " || " + "Semester: " + decodeURIComponent(pathSegments[pathSegments.length - 2]));
+    selected_val.append(spanElement);
   }
 }
 const printBtn = document.getElementById('download-tt-btn');
