@@ -201,6 +201,7 @@ $("#selectOption span").click(function () {
         'sec-opt': '#secGroup',
         'ge-opt': '#geGroup',
         'room-opt': '#roomGroup',
+        'vac-opt': '#vacGroup',
       };
       var groupID = groupMap[selectedOption];
       $(groupID).html(data);
