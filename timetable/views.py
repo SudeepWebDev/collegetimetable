@@ -347,4 +347,4 @@ def get_timetable_for_gvs(request, subject_name, semester_id):
     )
 
     # room_bool, course_bool, faculty_bool
-    return get_timetable(request, timetable_entries, False, True, True)
+    return get_timetable(request, timetable_entries, True, True, True)
