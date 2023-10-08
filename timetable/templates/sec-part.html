@@ -1,0 +1,20 @@
+<form method="post">
+    {% csrf_token %}
+    <label for="papersec" class="form-label">Select Paper:</label>
+    <select class="form-select" id="papersec" name="{{ form.subject_sec.name }}">
+        <option selected disabled>Select Paper</option>
+        {% for subject in form.subject_sec.field.queryset %}
+        <option value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
+        {% endfor %}
+    </select>
+    <label for="semestersec" class="form-label">Select Semester:</label>
+    <select class="form-select" id="semestersec" name="{{ form.semester.name }}"
+        aria-label="Select Semester">
+        <option selected disabled>Select semester</option>
+        {% for semester in form.semester.field.queryset %}
+        {% if semester.is_current_sem %}
+        <option value="{{ semester.semester_name }}">{{ semester.semester_name }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+</form>

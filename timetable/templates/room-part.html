@@ -1,0 +1,10 @@
+<form method="post">
+    {% csrf_token %}
+    <label for="room" class="form-label">Select Room:</label>
+    <select class="form-select" id="room" name="{{ form.room.name }}" aria-label="Select Room">
+        <option selected disabled>Select Room</option>
+        {% for room in form.room.field.queryset %}
+        <option value="{{ room.room_number }}">{{ room.room_number }}</option>
+        {% endfor %}
+    </select>
+</form>

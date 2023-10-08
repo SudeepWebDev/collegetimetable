@@ -1,0 +1,12 @@
+<!-- faculty_form.html -->
+<form method="post">
+    {% csrf_token %}
+    <label for="faculty" class="form-label">Select Faculty:</label>
+    <select class="form-select" id="faculty" name="{{ form.faculty.name }}"
+        aria-label="Select Faculty">
+        <option selected disabled>Select Faculty</option>
+        {% for faculty in form.faculty.field.queryset %}
+        <option value="{{ faculty.faculty_code }}/{{ faculty }}">{{ faculty }} {{ faculty.faculty_code }}</option>
+        {% endfor %}
+    </select>
+</form>

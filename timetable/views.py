@@ -1,19 +1,65 @@
 from django.db.models import Q
 from datetime import datetime, timedelta
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Subject, TimetableEntry
-from .forms import SemesterSelectionForm
+from .forms import (
+    Course_selection,
+    Faculty_selection,
+    Room_selection,
+    Ge_selection,
+    Sec_selection,
+    Vac_selection,
+)
 
 from django.shortcuts import get_object_or_404, render
 from .models import Room, Course, Semester, Faculty, Section
 
 
 def timetablehome(request):
-    form = SemesterSelectionForm(request.POST or None)
+    # Create instances of all your form classes
+    course_selection = Course_selection()
+    faculty_selection = Faculty_selection()
+    room_selection = Room_selection()
+    ge_selection = Ge_selection()
+    sec_selection = Sec_selection()
+    vac_selection = Vac_selection()
+
+    # Check if the request is an AJAX request and includes the 'option' parameter
+    if (
+        request.headers.get("x-requested-with") == "XMLHttpRequest"
+        and "option" in request.GET
+    ):
+        option = request.GET.get("option")
+
+        # Depending on the selected option, choose the appropriate form
+        if option == "faculty-opt":
+            form = faculty_selection
+            template_part = "faculty-part.html"
+        elif option == "room-opt":
+            form = room_selection
+            template_part = "room-part.html"
+        elif option == "ge-opt":
+            form = ge_selection
+            template_part = "ge-part.html"
+        elif option == "sec-opt":
+            form = sec_selection
+            template_part = "sec-part.html"
+        elif option == "vac-opt":
+            form = vac_selection
+            template_part = "vac-part.html"
+        else:
+            form = None
+
+        if form is not None:
+            return render(
+                request,
+                template_part,
+                {"form": form},
+            )
     return render(
         request,
         "time-table.html",
-        {"form": form},
+        {"form": course_selection},
     )
 
 
