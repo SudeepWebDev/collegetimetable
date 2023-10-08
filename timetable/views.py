@@ -1,7 +1,7 @@
 from django.db.models import Q
 from datetime import datetime, timedelta
 from django.http import HttpResponse
-from .models import TimetableEntry
+from .models import Subject, TimetableEntry
 from .forms import SemesterSelectionForm
 
 from django.shortcuts import get_object_or_404, render
@@ -10,19 +10,10 @@ from .models import Room, Course, Semester, Faculty, Section
 
 def timetablehome(request):
     form = SemesterSelectionForm(request.POST or None)
-
-    if form.is_valid():
-        selected_semester = form.cleaned_data["semester"]
-        timetable_entries1 = TimetableEntry.objects.filter(
-            timetable__semester=selected_semester
-        )
-    else:
-        timetable_entries1 = []
-
     return render(
         request,
         "time-table.html",
-        {"form": form, "timetable_entries1": timetable_entries1},
+        {"form": form},
     )
 
 
@@ -43,18 +34,16 @@ def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bo
                 "subject": entry.subject.subject_name,  # Subject name
                 "room": entry.room.room_number if room_bool else "",  # Room number
                 "timing": entry.timing.start_time,  # Timing/start time
-                "faculty": entry.faculty
-                if faculty_bool
-                else "",  # Faculty name
+                "faculty": entry.faculty if faculty_bool else "",  # Faculty name
                 "faculty_2": entry.faculty_2
-                if entry.faculty_2 and  faculty_bool
-                else "", 
+                if entry.faculty_2 and faculty_bool
+                else "",
                 "faculty_3": entry.faculty_3
-                if entry.faculty_3 and  faculty_bool
-                else "", 
+                if entry.faculty_3 and faculty_bool
+                else "",
                 "faculty_4": entry.faculty_4
-                if entry.faculty_4 and  faculty_bool
-                else "", 
+                if entry.faculty_4 and faculty_bool
+                else "",
                 "course": entry.course if course_bool else "",
             }
         )
@@ -257,27 +246,34 @@ def get_timetable_for_semester_and_course(request, semester_id, course_id, secti
 
     try:
         course = get_object_or_404(Course, course_name=course_id)
-        section = get_object_or_404(Section, section_type = section_id)
+        section = get_object_or_404(Section, section_type=section_id)
     except Course.DoesNotExist:
         return HttpResponse(f"Course with ID {course_id} does not exist.")
 
     timetable_entries = TimetableEntry.objects.filter(
-        timetable__semester=semester, timetable__course=course, timetable__section = section
+        timetable__semester=semester,
+        timetable__course=course,
+        timetable__section=section,
     )
     # room_bool, course_bool, faculty_bool
     return get_timetable(request, timetable_entries, True, False, True)
 
-def get_timetable_for_faculty(request,faculty_code, faculty_name):
+
+def get_timetable_for_faculty(request, faculty_code, faculty_name):
     try:
         faculty = get_object_or_404(Faculty, faculty_code=faculty_code)
     except Faculty.DoesNotExist:
         return HttpResponse(f"Faculty with name {faculty_name} does not exist.")
 
-    timetable_entries = TimetableEntry.objects.filter(Q(faculty=faculty) | Q(faculty_2=faculty) | Q(faculty_3=faculty) | Q(faculty_4=faculty))
-    
+    timetable_entries = TimetableEntry.objects.filter(
+        Q(faculty=faculty)
+        | Q(faculty_2=faculty)
+        | Q(faculty_3=faculty)
+        | Q(faculty_4=faculty)
+    )
+
     # room_bool, course_bool, faculty_bool
     return get_timetable(request, timetable_entries, True, True, False)
-
 
 
 def get_timetable_for_room(request, room_number):
@@ -287,5 +283,22 @@ def get_timetable_for_room(request, room_number):
         return HttpResponse(f"Room with number {room_number} does not exist.")
 
     timetable_entries = TimetableEntry.objects.filter(room=room)
+    # room_bool, course_bool, faculty_bool
+    return get_timetable(request, timetable_entries, False, True, True)
+
+
+def get_timetable_for_gvs(request, subject_name, semester_id):
+    try:
+        semester = get_object_or_404(Semester, semester_name=semester_id)
+        subject = get_object_or_404(Subject, subject_name=subject_name)
+
+    except Semester.DoesNotExist:
+        return HttpResponse(f"Semester with number {semester_id} does not exist.")
+
+    timetable_entries = TimetableEntry.objects.filter(
+        timetable__semester=semester,
+        subject__subject_name=subject,
+    )
+
     # room_bool, course_bool, faculty_bool
     return get_timetable(request, timetable_entries, False, True, True)

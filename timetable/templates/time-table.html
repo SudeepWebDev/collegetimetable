@@ -87,7 +87,11 @@
             font-size: 18px;
         }
 
-
+        #selectOption {
+            overflow-x: auto;
+            white-space: nowrap;
+            justify-content: flex-start !important;
+        }
     }
 </style>
 <div class="nav-bottom-header">
@@ -101,9 +105,13 @@
                         id="course-opt">Course</span>
                     <span class="padding-15px-lr padding-5px-tb border hover-tag flex-grow-1 " style="font-weight: 600;"
                         id="room-opt">Room</span>
-                    <!-- <span class="padding-15px-lr padding-5px-tb border hover-tag" id="ge-opt">GE</span>
-                    <span class="padding-15px-lr padding-5px-tb border hover-tag" id="vac-opt">VAC</span>
-                    <span class="padding-15px-lr padding-5px-tb border hover-tag" id="sec-opt">SEC</span> -->
+                    <span class="padding-15px-lr padding-5px-tb border hover-tag " style="font-weight: 600;"
+                        id="ge-opt">GE</span>
+                    <span class="padding-15px-lr padding-5px-tb border hover-tag " style="font-weight: 600;"
+                        id="sec-opt">SEC</span>
+                    <span class="padding-15px-lr padding-5px-tb border hover-tag " style="font-weight: 600;"
+                        id="vac-opt">VAC</span>
+
                 </div>
 
                 <form method="post">
@@ -163,6 +171,41 @@
                             <option selected disabled>Select Room</option>
                             {% for room in form.room.field.queryset %}
                             <option value="{{ room.room_number }}">{{ room.room_number }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Select GE/VAC/SEC paper -->
+                    <div id="gvsGroup" class="form-group mt-3">
+                        <label for="paperge" class="form-label">Select Paper:</label>
+                        <select class="form-select" id="paperge" name="{{ form.subject_ge.name }}">
+                            <option selected disabled>Select Paper</option>
+                            {% for subject in form.subject_ge.field.queryset %}
+                            <option value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="papersec" class="form-label">Select Paper:</label>
+                        <select class="form-select" id="papersec" name="{{ form.subject_sec.name }}">
+                            <option selected disabled>Select Paper</option>
+                            {% for subject in form.subject_sec.field.queryset %}
+                            <option value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="papervac" class="form-label">Select Paper:</label>
+                        <select class="form-select" id="papervac" name="{{ form.subject_vac.name }}">
+                            <option selected disabled>Select Paper</option>
+                            {% for subject in form.subject_vac.field.queryset %}
+                            <option value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="semestergvs" class="form-label">Select Semester:</label>
+                        <select class="form-select" id="semestergvs" name="{{ form.semester.name }}"
+                            aria-label="Select Semester">
+                            <option selected disabled>Select semester</option>
+                            {% for semester in form.semester.field.queryset %}
+                            {% if semester.is_current_sem %}
+                            <option value="{{ semester.semester_name }}">{{ semester.semester_name }}</option>
+                            {% endif %}
                             {% endfor %}
                         </select>
                     </div>
@@ -284,11 +327,14 @@
         $("#period-row").toggle(this.checked);
     });
     const currentPath1 = window.location.pathname;
-    $("#semesterGroup, #courseGroup, #facultyGroup, #roomGroup").hide();
+    $("#semesterGroup, #courseGroup, #facultyGroup, #roomGroup, #gvsGroup").hide();
     $("#courseGroup").show();
     $("#course-opt").addClass('click-tag')
     if (currentPath1 == "/timetable/") {
         $("#semester").on("change", function () {
+            $("#submit-tt-btn").prop("disabled", false);
+        })
+        $("#semestergvs").on("change", function () {
             $("#submit-tt-btn").prop("disabled", false);
         })
         $("#faculty").on("change", function () {
@@ -303,35 +349,51 @@
 
     $("#course-opt").on("click", function () {
         $("#courseGroup").show();
-        $("#facultyGroup").hide();
-        $("#roomGroup").hide();
+        $("#facultyGroup, #gvsGroup, #roomGroup").hide();
         $("#course-opt").addClass('click-tag');
-        $("#faculty-opt").removeClass('click-tag');
-        $("#room-opt").removeClass('click-tag');
+        $("#faculty-opt, #ge-opt, #room-opt").removeClass('click-tag');
         $("#submit-tt-btn").prop("disabled", true);
     });
     $("#faculty-opt").on("click", function () {
+        $("#gvsGroup, #roomGroup, #courseGroup").hide();
         $("#facultyGroup").show();
-        $("#roomGroup").hide();
-        $("#courseGroup").hide();
         $("#faculty-opt").addClass('click-tag');
-        $("#room-opt").removeClass('click-tag');
-        $("#course-opt").removeClass('click-tag');
+        $("#room-opt,#ge-opt,#course-opt").removeClass('click-tag');
         $("#submit-tt-btn").prop("disabled", true);
     });
     $("#room-opt").on("click", function () {
+        $("#gvsGroup, #courseGroup, #facultyGroup").hide();
         $("#roomGroup").show();
-        $("#courseGroup").hide();
-        $("#facultyGroup").hide();
         $("#room-opt").addClass('click-tag');
-        $("#course-opt").removeClass('click-tag');
-        $("#faculty-opt").removeClass('click-tag');
+        $("#ge-opt,#course-opt,#faculty-opt").removeClass('click-tag');
+        $("#submit-tt-btn").prop("disabled", true);
+    });
+    $("#ge-opt").on("click", function () {
+        $("#gvsGroup, #paperge").show();
+        $("#papersec, #papervac, #roomGroup, #courseGroup, #facultyGroup,label[for='papersec'],label[for='papervac']").hide();
+        $("#ge-opt").addClass('click-tag');
+        $("#sec-opt,#vac-opt,#course-opt,#room-opt,#faculty-opt").removeClass('click-tag');
+        $("#submit-tt-btn").prop("disabled", true);
+    });
+    $("#sec-opt").on("click", function () {
+        $("#gvsGroup, #papersec").show();
+        $("#paperge, #papervac, #roomGroup, #courseGroup, #facultyGroup,label[for='papersec'],label[for='papervac']").hide();
+        $("#sec-opt").addClass('click-tag');
+        $("#ge-opt,#vac-opt,#course-opt,#room-opt,#faculty-opt,#submit-tt-btn").prop("disabled", true);
+    });
+    $("#vac-opt").on("click", function () {
+        $("#gvsGroup, #papervac").show();
+        $("#papersec, #paperge,#roomGroup,#courseGroup,#facultyGroup,label[for='papersec'],label[for='papervac']").hide();
+        $("#vac-opt").addClass('click-tag');
+        $("#ge-opt,#sec-opt,#course-opt,#room-opt,#faculty-opt").removeClass('click-tag');
         $("#submit-tt-btn").prop("disabled", true);
     });
     $("#submit-tt-btn").prop("disabled", true);
     $("#submit-tt-btn").on("click", function (e) {
         e.preventDefault();
         const semester = $("#semester").val();
+        const semestergvs = $("#semestergvs").val();
+        const papergvs = $("#papergvs").val();
         const course = $("#course").val();
         const faculty = $("#faculty").val();
         const room = $("#room").val();
@@ -341,8 +403,10 @@
             window.location.href = "/timetable/faculty/" + faculty + "/";
         } else if ($("#roomGroup").is(":visible") && room !== "") {
             window.location.href = "/timetable/room/" + room + "/";
-        } else {
+        } else if ($("#courseGroup").is(":visible") && course !== "") {
             window.location.href = "/timetable/course/" + semester + "/" + course + "/" + section + "/";
+        } else {
+            window.location.href = "/timetable/gvs/" + papergvs + "/" + semestergvs + "/";
         }
     });
     const currentPath = window.location.pathname;
