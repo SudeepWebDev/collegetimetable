@@ -333,9 +333,10 @@ def get_timetable_for_room(request, room_number):
     return get_timetable(request, timetable_entries, False, True, True)
 
 
-def get_timetable_for_gvs(request, subject_name, semester_id):
+def get_timetable_for_gvs(request, subject_name, section_id, semester_id):
     try:
         semester = get_object_or_404(Semester, semester_name=semester_id)
+        section = get_object_or_404(Section, section_type=section_id)
         subject = get_object_or_404(Subject, subject_name=subject_name)
 
     except Semester.DoesNotExist:
@@ -344,6 +345,7 @@ def get_timetable_for_gvs(request, subject_name, semester_id):
     timetable_entries = TimetableEntry.objects.filter(
         timetable__semester=semester,
         subject__subject_name=subject,
+        timetable__section=section,
     )
 
     # room_bool, course_bool, faculty_bool
