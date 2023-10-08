@@ -176,7 +176,7 @@
                     </div>
 
                     <!-- Select GE/VAC/SEC paper -->
-                    <div id="gvsGroup" class="form-group mt-3">
+                    <div id="geGroup" class="form-group mt-3">
                         <label for="paperge" class="form-label">Select Paper:</label>
                         <select class="form-select" id="paperge" name="{{ form.subject_ge.name }}">
                             <option selected disabled>Select Paper</option>
@@ -184,6 +184,18 @@
                             <option value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
                             {% endfor %}
                         </select>
+                        <label for="semesterge" class="form-label">Select Semester:</label>
+                        <select class="form-select" id="semesterge" name="{{ form.semester.name }}"
+                            aria-label="Select Semester">
+                            <option selected disabled>Select semester</option>
+                            {% for semester in form.semester.field.queryset %}
+                            {% if semester.is_current_sem %}
+                            <option value="{{ semester.semester_name }}">{{ semester.semester_name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div id="secGroup" class="form-group mt-3">
                         <label for="papersec" class="form-label">Select Paper:</label>
                         <select class="form-select" id="papersec" name="{{ form.subject_sec.name }}">
                             <option selected disabled>Select Paper</option>
@@ -191,6 +203,18 @@
                             <option value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
                             {% endfor %}
                         </select>
+                        <label for="semestersec" class="form-label">Select Semester:</label>
+                        <select class="form-select" id="semestersec" name="{{ form.semester.name }}"
+                            aria-label="Select Semester">
+                            <option selected disabled>Select semester</option>
+                            {% for semester in form.semester.field.queryset %}
+                            {% if semester.is_current_sem %}
+                            <option value="{{ semester.semester_name }}">{{ semester.semester_name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div id="vacGroup" class="form-group mt-3">
                         <label for="papervac" class="form-label">Select Paper:</label>
                         <select class="form-select" id="papervac" name="{{ form.subject_vac.name }}">
                             <option selected disabled>Select Paper</option>
@@ -198,8 +222,8 @@
                             <option value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
                             {% endfor %}
                         </select>
-                        <label for="semestergvs" class="form-label">Select Semester:</label>
-                        <select class="form-select" id="semestergvs" name="{{ form.semester.name }}"
+                        <label for="semestervac" class="form-label">Select Semester:</label>
+                        <select class="form-select" id="semestervac" name="{{ form.semester.name }}"
                             aria-label="Select Semester">
                             <option selected disabled>Select semester</option>
                             {% for semester in form.semester.field.queryset %}
@@ -327,14 +351,14 @@
         $("#period-row").toggle(this.checked);
     });
     const currentPath1 = window.location.pathname;
-    $("#semesterGroup, #courseGroup, #facultyGroup, #roomGroup, #gvsGroup").hide();
+    $("#semesterGroup, #courseGroup, #facultyGroup, #roomGroup, #geGroup, #secGroup, #vacGroup").hide();
     $("#courseGroup").show();
     $("#course-opt").addClass('click-tag')
     if (currentPath1 == "/timetable/") {
         $("#semester").on("change", function () {
             $("#submit-tt-btn").prop("disabled", false);
         })
-        $("#semestergvs").on("change", function () {
+        $("#semesterge, #semestervac, #semestersec").on("change", function () {
             $("#submit-tt-btn").prop("disabled", false);
         })
         $("#faculty").on("change", function () {
@@ -349,64 +373,74 @@
 
     $("#course-opt").on("click", function () {
         $("#courseGroup").show();
-        $("#facultyGroup, #gvsGroup, #roomGroup").hide();
+        $("#facultyGroup, #geGroup, #roomGroup,#secGroup,#vacGroup").hide();
         $("#course-opt").addClass('click-tag');
-        $("#faculty-opt, #ge-opt, #room-opt").removeClass('click-tag');
+        $("#faculty-opt, #ge-opt,#sec-opt,#vac-opt, #room-opt").removeClass('click-tag');
         $("#submit-tt-btn").prop("disabled", true);
     });
     $("#faculty-opt").on("click", function () {
-        $("#gvsGroup, #roomGroup, #courseGroup").hide();
+        $("#geGroup, #roomGroup, #courseGroup,#secGroup,#vacGroup").hide();
         $("#facultyGroup").show();
         $("#faculty-opt").addClass('click-tag');
-        $("#room-opt,#ge-opt,#course-opt").removeClass('click-tag');
+        $("#room-opt,#ge-opt,#sec-opt,#vac-opt,#course-opt").removeClass('click-tag');
         $("#submit-tt-btn").prop("disabled", true);
     });
     $("#room-opt").on("click", function () {
-        $("#gvsGroup, #courseGroup, #facultyGroup").hide();
+        $("#geGroup, #courseGroup, #facultyGroup,#secGroup,#vacGroup").hide();
         $("#roomGroup").show();
         $("#room-opt").addClass('click-tag');
-        $("#ge-opt,#course-opt,#faculty-opt").removeClass('click-tag');
+        $("#ge-opt,#course-opt,#sec-opt,#vac-opt,#faculty-opt").removeClass('click-tag');
         $("#submit-tt-btn").prop("disabled", true);
     });
     $("#ge-opt").on("click", function () {
-        $("#gvsGroup, #paperge").show();
-        $("#papersec, #papervac, #roomGroup, #courseGroup, #facultyGroup,label[for='papersec'],label[for='papervac']").hide();
+        $("#geGroup").show();
+        $("#roomGroup, #courseGroup, #facultyGroup,#secGroup,#vacGroup").hide();
         $("#ge-opt").addClass('click-tag');
         $("#sec-opt,#vac-opt,#course-opt,#room-opt,#faculty-opt").removeClass('click-tag');
         $("#submit-tt-btn").prop("disabled", true);
     });
     $("#sec-opt").on("click", function () {
-        $("#gvsGroup, #papersec").show();
-        $("#paperge, #papervac, #roomGroup, #courseGroup, #facultyGroup,label[for='papersec'],label[for='papervac']").hide();
+        $("#secGroup").show();
+        $("#roomGroup, #courseGroup, #facultyGroup,#geGroup,#vacGroup").hide();
         $("#sec-opt").addClass('click-tag');
-        $("#ge-opt,#vac-opt,#course-opt,#room-opt,#faculty-opt,#submit-tt-btn").prop("disabled", true);
+        $("#ge-opt,#vac-opt,#course-opt,#room-opt,#faculty-opt").removeClass('click-tag');
+        $("#submit-tt-btn").prop("disabled", true);
     });
     $("#vac-opt").on("click", function () {
-        $("#gvsGroup, #papervac").show();
-        $("#papersec, #paperge,#roomGroup,#courseGroup,#facultyGroup,label[for='papersec'],label[for='papervac']").hide();
+        $("#vacGroup").show();
+        $("#roomGroup, #courseGroup, #facultyGroup,#geGroup,#secGroup").hide();
         $("#vac-opt").addClass('click-tag');
         $("#ge-opt,#sec-opt,#course-opt,#room-opt,#faculty-opt").removeClass('click-tag');
         $("#submit-tt-btn").prop("disabled", true);
     });
+
     $("#submit-tt-btn").prop("disabled", true);
     $("#submit-tt-btn").on("click", function (e) {
         e.preventDefault();
         const semester = $("#semester").val();
-        const semestergvs = $("#semestergvs").val();
-        const papergvs = $("#papergvs").val();
+        const semesterge = $("#semesterge").val();
+        const semestersec = $("#semestersec").val();
+        const semestervac = $("#semestervac").val();
+        const paperge = $("#paperge").val();
+        const papersec = $("#papersec").val();
+        const papervac = $("#papervac").val();
         const course = $("#course").val();
         const faculty = $("#faculty").val();
         const room = $("#room").val();
         const section = $("#section").val();
-
+        
         if ($("#facultyGroup").is(":visible") && faculty !== "") {
             window.location.href = "/timetable/faculty/" + faculty + "/";
         } else if ($("#roomGroup").is(":visible") && room !== "") {
             window.location.href = "/timetable/room/" + room + "/";
         } else if ($("#courseGroup").is(":visible") && course !== "") {
             window.location.href = "/timetable/course/" + semester + "/" + course + "/" + section + "/";
+        } else if ($("#geGroup").is(":visible") && paperge !== "") {
+            window.location.href = "/timetable/gvs/" + paperge + "/" + semesterge + "/";
+        } else if ($("#secGroup").is(":visible") && papersec !== "") {
+            window.location.href = "/timetable/gvs/" + papersec + "/" + semestersec + "/";
         } else {
-            window.location.href = "/timetable/gvs/" + papergvs + "/" + semestergvs + "/";
+            window.location.href = "/timetable/gvs/" + papervac + "/" + semestervac + "/";
         }
     });
     const currentPath = window.location.pathname;
