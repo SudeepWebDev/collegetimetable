@@ -76,10 +76,6 @@ def search_rooms(request):
         selected_day = request.POST.get('day')
         selected_time = request.POST.get('time')
 
-        # Print the values for debugging
-        print("Selected day:", selected_day)
-        print("Selected time:", selected_time)
-
         # Query the database for available rooms based on selected_day and selected_time
         not_available_rooms1 = TimetableEntry.objects.filter(day=selected_day, timing__start_time=selected_time)
         not_available_rooms = [entry.room.room_number for entry in not_available_rooms1]
@@ -95,6 +91,8 @@ def search_rooms(request):
 
         response_data = {
             'available_rooms': available_rooms,
+            'selected_day': selected_day,
+            'selected_time': selected_time
         }
 
         return render(request, "vacant-room.html", response_data)

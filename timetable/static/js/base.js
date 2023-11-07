@@ -159,7 +159,8 @@ if ($("#reselect-tt-btn")) {
   })
 }
 
-const cap = $("caption");
+const cap = $("#table-title");
+
 const selected_val = $("#selectedvalue");
 const pathSegments = currentPath.split('/');
 const retrived_tt_val = pathSegments[pathSegments.length - 3];

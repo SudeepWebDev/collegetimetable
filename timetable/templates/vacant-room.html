@@ -2,6 +2,9 @@
 {% load static %}
 {% block headScript %}
 {% endblock %}
+{% block navButton %}
+<button type="button" class="btn btn-outline-dark" onclick="window.location.href='/timetable'">Home</button>
+{% endblock %}
 {% block content %}
 <div class="container my-5">
     <div class="row justify-content-center">
@@ -20,7 +23,6 @@
                             <option value="Thursday">Thursday</option>
                             <option value="Friday">Friday</option>
                             <option value="Saturday">Saturday</option>
-                            <!-- Add options for other days here -->
                         </select>
                     </div>
                     <div class="form-group mb-3">
@@ -30,12 +32,11 @@
                             <option value="9:30">9:30 AM</option>
                             <option value="10:30">10:30 AM</option>
                             <option value="11:30">11:30 AM</option>
-                            <option value="12:30 PM">12:30 PM</option>
-                            <option value="13:30 PM">1:30 PM</option>
-                            <option value="14:30 PM">2:30 PM</option>
-                            <option value="15:30 PM">3:30 PM</option>
-                            <option value="16:30 PM">4:30 PM</option>
-                            <!-- Add options for other times here -->
+                            <option value="12:30">12:30 PM</option>
+                            <option value="13:30">1:30 PM</option>
+                            <option value="14:30">2:30 PM</option>
+                            <option value="15:30">3:30 PM</option>
+                            <option value="16:30">4:30 PM</option>
                         </select>
                     </div>
                     <div class="form-group mb-3">
@@ -46,8 +47,11 @@
         </div>
         <div class="col-lg-4 d-flex">
             <div class="card p-4 flex-fill" id="result">
-                <div class="result-title font-weight-bold" id="result-title"></div>
                 <ul class="result-list list-group" id="result-list">
+                    <li class="list-group-item font-weight-bold d-flex justify-content-between bg-light text-dark">
+                        <span>Day: {{ selected_day }} </span>
+                        <span>Time: {{ selected_time }} </span>
+                    </li>
                     {% for entry in available_rooms %}
                     <li class="list-group-item">{{ entry }}</li>
                     {% empty %}

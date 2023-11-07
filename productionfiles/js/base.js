@@ -25,7 +25,7 @@ class ScrollableElement {
   }
 }
 
-const tableScrollable = new ScrollableElement('.table-responsive');
+const tableScrollable = new ScrollableElement('.table');
 
 $("#flexSwitchCheckChecked").on("change", function () {
   $("#period-row").toggle(this.checked);
@@ -159,7 +159,8 @@ if ($("#reselect-tt-btn")) {
   })
 }
 
-const cap = $("caption");
+const cap = $("#table-title");
+
 const selected_val = $("#selectedvalue");
 const pathSegments = currentPath.split('/');
 const retrived_tt_val = pathSegments[pathSegments.length - 3];
