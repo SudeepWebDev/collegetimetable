@@ -1,7 +1,7 @@
 from django.db.models import Q
 from datetime import datetime, timedelta
 from django.http import HttpResponse, JsonResponse
-from .models import Subject, TimetableEntry
+from .models import Subject, TimetableEntry, Room
 from .forms import (
     Course_selection,
     Faculty_selection,
@@ -62,6 +62,46 @@ def timetablehome(request):
         {"form": course_selection},
     )
 
+def vacant_room(request):
+   
+    return render(
+        request,
+        "vacant-room.html",
+    )
+
+
+def search_rooms(request):
+    if request.method == 'POST':
+        # Retrieve the selected day and time from the request's POST data
+        selected_day = request.POST.get('day')
+        selected_time = request.POST.get('time')
+
+        # Print the values for debugging
+        print("Selected day:", selected_day)
+        print("Selected time:", selected_time)
+
+        # Query the database for available rooms based on selected_day and selected_time
+        not_available_rooms1 = TimetableEntry.objects.filter(day=selected_day, timing__start_time=selected_time)
+        not_available_rooms = [entry.room.room_number for entry in not_available_rooms1]
+
+        all_room_numbers = Room.objects.values_list('room_number', flat=True)
+        # Convert the queryset to a list
+        room_numbers_list = list(all_room_numbers)
+        
+        available_rooms = [item for item in room_numbers_list if item not in not_available_rooms]
+        # print(room_numbers_list)
+        # print(not_available_rooms)
+        # print(available_rooms)
+
+        response_data = {
+            'available_rooms': available_rooms,
+        }
+
+        return render(request, "vacant-room.html", response_data)
+
+    else:
+        # Handle cases where the form is not submitted with a POST request
+        return JsonResponse({'error': 'Invalid request method'})
 
 # Common for both faculty, course and room --> sorting and adding breaks
 def get_timetable(request, timetable_entries, room_bool, course_bool, faculty_bool):

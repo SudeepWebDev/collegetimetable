@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path("timetable/", views.timetablehome, name="timetablehome"),
+    path("timetable/vacant-room", views.vacant_room, name="vacant_room"),
+     path('search-rooms/', views.search_rooms, name='search_rooms'),
     path(
         "timetable/course/<int:semester_id>/<str:course_id>/<str:section_id>/",
         views.get_timetable_for_semester_and_course,

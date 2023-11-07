@@ -169,14 +169,15 @@
     padding: .75rem;
     vertical-align: middle;
     border-top: 1px solid #000000;
-    white-space: nowrap;    
+    white-space: nowrap;
 }
 
-table tbody td:first-child, table thead th:first-child {
+table tbody td:first-child,
+table thead th:first-child {
     position: sticky;
     left: 0;
-    background-color: #fff; 
-    
+    background-color: #fff;
+
     z-index: 2;
 }
 
@@ -186,6 +187,92 @@ table tbody td:first-child, table thead th:first-child {
 
 @media screen and (max-width: 600px) {
     .large-screen-element {
-        display: none; 
+        display: none;
+    }
+}
+
+:root {
+    --p-bg-color-1: rgb(10, 20, 110);
+    --p-bg-color-2: #0071EB;
+    --white: white;
+    --blue: blue;
+    --black: black;
+    --cornflowerblue: cornflowerblue;
+    --warm-yellow: rgb(249, 202, 36);
+    --vibrant-orange: rgb(240, 147, 43);
+
+}
+
+thead,
+.align-middle {
+    background: var(--white) !important;
+    z-index: 3;
+}
+
+caption {
+    caption-side: top;
+}
+
+.nav-bottom-header {
+    display: flex;
+    flex-direction: column;
+    margin: 40px;
+    text-align: center;
+    border-radius: 10px;
+    background: linear-gradient(to bottom right, var(--p-bg-color-1), var(--p-bg-color-2));
+    color: var(--white);
+
+}
+
+.study-text,
+.search-appearance,
+.tag-icons {
+    margin-bottom: 20px;
+
+}
+
+.nav-bottom-header div.study-text {
+    margin: 30px;
+
+}
+
+.hover-tag:hover {
+    background-color: rgb(245, 245, 245);
+    color: rgb(10, 20, 110);
+}
+
+.click-tag {
+    background-color: white;
+    color: rgb(10, 20, 110);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+    .custom-logo {
+        margin-left: 10px;
+    }
+
+    .nav-bottom-header {
+        margin: 40px 10px;
+    }
+
+
+
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    #selectOption {
+        overflow-x: auto;
+        white-space: nowrap;
+        justify-content: flex-start !important;
     }
 }
